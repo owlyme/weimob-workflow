@@ -1,0 +1,28 @@
+:global {
+  .arrow-element-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    margin-right: -7px;
+  }
+  .arrow-border {
+    border-bottom: 1px solid #999;
+    width: 41px;
+  }
+  .arrow-element {
+    border: 7px solid transparent;
+    border-left-color: #999;
+    width: 0;
+    height: 0;
+  }
+  .drag-enter {
+    .arrow-border {
+      border-bottom: 1px solid #1890ff;
+    }
+    .arrow-element {
+      border-left-color: #1890ff;
+    }
+  }
+}
