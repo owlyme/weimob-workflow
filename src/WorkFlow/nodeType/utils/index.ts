@@ -14,29 +14,7 @@ export const fromPorpertiesParseToString = (obj: object) => {
   return newObj;
 };
 
-export const fromPorpertiesParseToObject = (obj: object) => {
-  const newObj = {};
-  const fn = (arr, value) => {
-    const len = arr.length;
-    let index = 0;
-    arr.reduce((acc, key) => {
-      if (index < len - 1) {
-        acc[key] = acc[key] || {};
-        ++index;
-        return acc[key];
-      } else {
-        acc[key] = value;
-      }
-    }, newObj);
-  };
 
-  for (const key in obj) {
-    const keys = key.split('.');
-    const value = obj[key];
-    fn(keys, value);
-  }
-  return newObj;
-};
 
 export function debounce(fn, delay = 300) {
   let timer = null;

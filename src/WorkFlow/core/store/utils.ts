@@ -14,7 +14,7 @@ export const initState = () => ({
   dragEnterNode: null,
 });
 
-export const saveWorkFlowNodesToLocal = workFlowNodes => {
+export const saveWorkFlowNodesToLocal = (workFlowNodes: any) => {
   localStorage.workFlowNodes = JSON.stringify(workFlowNodes);
 };
 
@@ -23,53 +23,56 @@ export const getWorkFlowNodes = () => {
     ? JSON.parse(localStorage.workFlowNodes)
     : null;
 };
-
+let count: any = null;
 export const createNodeId = (startNum = 'n-000') => {
-  if (createNodeId.count === undefined) {
-    createNodeId.count = Number((startNum || '').replace('n-', '')) || 0;
+  if (count === null) {
+    count = Number((startNum || '').replace('n-', '')) || 0;
   } else {
-    createNodeId.count = Number(createNodeId.count);
+    count = Number(count);
   }
-  createNodeId.count++;
+  count++;
   let s = '';
-  if (createNodeId.count < 10) {
-    s = '00' + createNodeId.count;
-  } else if (createNodeId.count < 100) {
-    s = '0' + createNodeId.count;
+
+  if (count < 10) {
+    s = '00' + count;
+  } else if (count < 100) {
+    s = '0' + count;
   } else {
-    s = createNodeId.count;
+    s = count;
   }
 
   return `n-${s}`;
 };
 
-export function createNodesNodeId(node: [], startNum = 'n-000') {
-  function fn(nodes) {
+export function createNodesNodeId(node: any, startNum = 'n-000') {
+  let lastNodeId: any = null;
+  function fn(nodes: any) {
     if (!nodes) return [];
-    return nodes.reduce((acc, node) => {
+    return nodes.reduce((acc: any[], node: any) => {
       const nodeId = createNodeId(startNum);
-      fn.lastNodeId = nodeId;
+      lastNodeId = nodeId;
 
       const newNode = {
         ...node,
         nodeId,
-        children: fn(node.children, startNum),
+        children: fn(node.children),
       };
       return acc.concat(newNode);
     }, []);
   }
 
-  return [fn([node], startNum)[0], fn.lastNodeId];
+  return [fn([node])[0], lastNodeId];
 }
 
-export function parseIndex(index) {
-  return String(index || '0-0')
-    .split('-')
-    .map(str => Number(str));
+export function parseIndex(index: string | number[]): number[] {
+  return Array.isArray(index)
+    ? index
+    : String(index || '0-0')
+        .split('-')
+        .map(str => Number(str));
 }
 
-
-export function getTargetNode(levelIndexArr: [], rootNode: object): object {
+export function getTargetNode(levelIndexArr: number[], rootNode: any): any {
   let index = 0;
 
   const targetNode = levelIndexArr.reduce(
@@ -78,7 +81,7 @@ export function getTargetNode(levelIndexArr: [], rootNode: object): object {
         return acc[indexValue];
       }
       index++;
-      return acc[indexValue].children;
+      return acc[indexValue]?.children;
     },
     [rootNode],
   );
@@ -86,6 +89,18 @@ export function getTargetNode(levelIndexArr: [], rootNode: object): object {
   return targetNode;
 }
 
-export function addNodeChoice(choiceNode = {}, nodeId: string): object {
-  choiceNode.children.forEach(node => (node.nodeId = nodeId));
+export function isSameAncestorsLevel(
+  dragNodeLevelIndex: string,
+  edgeNodeLevelIndex: string,
+): boolean {
+  const dragNodeLevelDepth = dragNodeLevelIndex.length;
+  const dragNodeParentLevelIndex = dragNodeLevelIndex.substr(
+    0,
+    dragNodeLevelDepth - 1,
+  );
+  return edgeNodeLevelIndex.indexOf(dragNodeParentLevelIndex) === 0;
+}
+
+export function addNodeChoice(choiceNode: any, nodeId: string): void {
+  choiceNode?.children?.forEach((node: any) => (node.nodeId = nodeId));
 }

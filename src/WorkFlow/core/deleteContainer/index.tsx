@@ -6,15 +6,15 @@ export default function DeleteContainer({
   workFlow,
   children,
   ...props
-}) {
-  const box = useRef();
+}: any) {
+  const box = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const { current } = box;
-    function remove(event) {
+    function remove(event: any): any {
       const k = event.keyCode;
-      if ((k == 8 || k == 46) && !remove.open) {
+      if ((k == 8 || k == 46) && !(remove as any).open) {
         //backspace 或 delete键
-        remove.open = true;
+        (remove as any).open = true;
         if (workFlow.currentNode.deleteForbidden) {
           message.error('当前节点不可删除');
         } else {
@@ -28,31 +28,31 @@ export default function DeleteContainer({
                   nodeLevelIndex: workFlow.currentNode.nodeLevelIndex,
                 },
               });
-              remove.open = false;
+              (remove as any).open = false;
             },
             onCancel() {
-              remove.open = false;
+              (remove as any).open = false;
             },
           });
         }
       }
     }
     // workFlowStatus
-    current.onmouseover = () => {
-      current.focus({
+    (current as any).onmouseover = () => {
+      (current as any).focus({
         preventScroll: true,
       });
     };
-    current.onmouseout = () => {
-      current.blur();
+    (current as any).onmouseout = () => {
+      (current as any).blur();
     };
-    if (workFlow.currentNode.nodeLevelIndex) {
-      current.addEventListener('keydown', remove);
+    if (workFlow.currentNode?.nodeLevelIndex) {
+      (current as any).addEventListener('keydown', remove);
     }
 
     return () => {
-      remove.open = false;
-      current.removeEventListener('keydown', remove);
+      (remove as any).open = false;
+      (current as any).removeEventListener('keydown', remove);
     };
   }, [dispatch, workFlow, box]);
   return (

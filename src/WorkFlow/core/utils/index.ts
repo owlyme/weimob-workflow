@@ -14,30 +14,6 @@ export const fromPorpertiesParseToString = (obj: object) => {
   return newObj;
 };
 
-export const fromPorpertiesParseToObject = (obj: object) => {
-  const newObj = {};
-  const fn = (arr, value) => {
-    const len = arr.length;
-    let index = 0;
-    arr.reduce((acc, key) => {
-      if (index < len - 1) {
-        acc[key] = acc[key] || {};
-        ++index;
-        return acc[key];
-      } else {
-        acc[key] = value;
-      }
-    }, newObj);
-  };
-
-  for (const key in obj) {
-    const keys = key.split('.');
-    const value = obj[key];
-    fn(keys, value);
-  }
-  return newObj;
-};
-
 export function mouseIsInDragEnterElementArea(
   dragEnterElementArea: any,
   mouseEvent: MouseEvent,
@@ -63,22 +39,22 @@ export const getWorkFlowNodes = () => {
     : null;
 };
 
-export function setDragImage(evt: MouseEvent, svg) {
+export function setDragImage(evt: DragEvent, svg: HTMLElement) {
   if (svg) {
-    evt.dataTransfer.setDragImage(svg, 0, -10);
+    evt?.dataTransfer?.setDragImage(svg, 0, -10);
   }
 }
 
-export function childDisable(parentAbleTypes: [], nodeType: string) {
+export function childDisable(parentAbleTypes: string[], nodeType: string) {
   if (!parentAbleTypes) {
     return false;
   }
   return !parentAbleTypes.length || !(parentAbleTypes || []).includes(nodeType);
 }
 
-export function debounce(fn, delay = 300) {
-  let timer = null;
-  return (...arg) => {
+export function debounce(fn: (...arg: any[]) => void, delay = 300) {
+  let timer: any = null;
+  return (...arg: any[]) => {
     if (timer) {
       clearTimeout(timer);
     }

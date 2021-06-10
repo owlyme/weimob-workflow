@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { NodeConfig } from '../types';
 import { mouseIsInDragEnterElementArea } from '../utils';
 
 export default function DropContainer({
@@ -7,25 +8,29 @@ export default function DropContainer({
   dispatch,
   workFlow,
   nodeLevelIndex,
-  onContainerDragEnter = f => f,
-  onContainerDragLeave = f => f,
+  onContainerDragEnter,
+  onContainerDragLeave,
   ...props
-}:any) {
-  const container = useRef();
+}: any) {
+  const container: React.RefObject<any> = useRef({});
 
-  function onDragEnter(evt) {
+  function onDragEnter(): void {
     const children = workFlow.dragNodeData.node.children;
     // 当移动节点为当前节点的父级时不操作
-    if (children && children.find(child => child.nodeId === node.nodeId)) {
+    if (
+      container.current &&
+      children &&
+      children.find((child: NodeConfig) => child.nodeId === node.nodeId)
+    ) {
       container.current.ondragover = null;
       return;
     }
 
     container.current.ondragover = onDragOver;
-    onContainerDragEnter(true);
+    onContainerDragEnter && onContainerDragEnter(true);
   }
 
-  function onDrop(evt) {
+  function onDrop(evt: any) {
     evt.preventDefault();
     evt.stopPropagation();
 
@@ -40,9 +45,7 @@ export default function DropContainer({
         });
       } else {
         // 当移动节点为当前节点的父级时不操作
-        const children = workFlow.dragNodeData.node.children;
-        if (children && children.find(child => child.nodeId === node.nodeId))
-          return;
+        if (nodeLevelIndex.indexOf(workFlow.dragNodeData.nodeLevelIndex) === 0) return;
 
         dispatch({
           type: 'workFlow/onMoveNode',
@@ -54,10 +57,10 @@ export default function DropContainer({
         });
       }
     }
-    onContainerDragLeave(false);
+    onContainerDragLeave && onContainerDragLeave(false);
   }
 
-  function onDragLeave(evt) {
+  function onDragLeave(evt: any) {
     evt.preventDefault();
     evt.stopPropagation();
     container.current.ondragover = null;
@@ -67,11 +70,11 @@ export default function DropContainer({
         evt,
       )
     ) {
-      onContainerDragLeave(false);
+      onContainerDragLeave && onContainerDragLeave(false);
     }
   }
 
-  const onDragOver = evt => {
+  const onDragOver = (evt: any) => {
     evt.stopPropagation();
     evt.preventDefault();
   };

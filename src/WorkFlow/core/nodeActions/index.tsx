@@ -8,8 +8,7 @@ export default function NodeActionsColse({
   nodeLevelIndex,
   dispatch,
 }: NodeProps) {
- 
-  function onRemoveNode(evt:any, node:NodeConfig, nodeLevelIndex: string) {
+  function onRemoveNode(evt: any, node: NodeConfig, nodeLevelIndex: string) {
     evt.stopPropagation();
     Modal.confirm({
       content: '您确定删除当前节点？',

@@ -3,6 +3,7 @@ import {
   createNodesNodeId,
   parseIndex,
   getTargetNode,
+  isSameAncestorsLevel,
 } from './utils';
 import { debounce } from '../utils/index';
 
@@ -18,16 +19,15 @@ function createDataStore() {
           payload: {
             dragNode,
             dragNodeLevelIndex,
-            edgeNode,
             edgeNodeLevelIndex,
             isSameParnet,
           },
-        },
-        { put },
+        }: any,
+        { put }: any,
       ) {
         try {
-          const dargNodeIndex = parseIndex(dragNodeLevelIndex).pop();
-          const edgeNodeIndex = parseIndex(edgeNodeLevelIndex).pop();
+          const dargNodeIndexArr = parseIndex(dragNodeLevelIndex);
+          const edgeNodeIndexArr = parseIndex(edgeNodeLevelIndex);
           // 移除原节点
           if (dragNodeLevelIndex) {
             await put({
@@ -39,18 +39,47 @@ function createDataStore() {
             });
           }
           // 插入节点
-          await put({
-            type: 'insertBrotherNode',
-            payload: {
-              node: dragNode,
-              nodeLevelIndex: edgeNodeLevelIndex,
-              order: !isSameParnet
-                ? 1
-                : isSameParnet && dargNodeIndex > edgeNodeIndex
-                ? 1
-                : 0,
-            },
-          });
+          if (isSameParnet) {
+            await put({
+              type: 'insertBrotherNode',
+              payload: {
+                node: dragNode,
+                nodeLevelIndex: edgeNodeLevelIndex,
+                order:
+                  isSameParnet &&
+                  dargNodeIndexArr[dargNodeIndexArr.length - 1] >
+                    edgeNodeIndexArr[edgeNodeIndexArr.length - 1]
+                    ? 1
+                    : 0,
+              },
+            });
+          } else {
+            let newEdgeNodeLevelIndex = edgeNodeLevelIndex;
+
+            if (
+              dargNodeIndexArr.length < edgeNodeIndexArr.length &&
+              dargNodeIndexArr[dargNodeIndexArr.length - 1] <
+                edgeNodeIndexArr[dargNodeIndexArr.length - 1] &&
+              isSameAncestorsLevel(dragNodeLevelIndex, edgeNodeLevelIndex)
+            ) {
+              newEdgeNodeLevelIndex = edgeNodeIndexArr.map((i, index) => {
+                if (index === dargNodeIndexArr.length - 1) {
+                  return i - 1;
+                }
+                return i;
+              });
+            }
+
+            await put({
+              type: 'insertBrotherNode',
+              payload: {
+                node: dragNode,
+                nodeLevelIndex: newEdgeNodeLevelIndex,
+                order: 1,
+              },
+            });
+          }
+
           await put({
             type: 'saveDragingNodeData',
             payload: {},
@@ -61,8 +90,8 @@ function createDataStore() {
       },
       // 移动节点到一个空父节点
       async onMoveNode(
-        { payload: { dragNode, dragNodeLevelIndex, targetNode } },
-        { put },
+        { payload: { dragNode, dragNodeLevelIndex, targetNode } }: any,
+        { put }: any,
       ) {
         try {
           await put({
@@ -91,8 +120,8 @@ function createDataStore() {
       },
       // 从工具栏拖放新的节点
       async onAddNodeDragEnd(
-        { payload: { dragNode, dragEnterNode } },
-        { put },
+        { payload: { dragNode, dragEnterNode } }: any,
+        { put }: any,
       ) {
         try {
           await put({
@@ -112,7 +141,10 @@ function createDataStore() {
         }
       },
       // 配置节点属性以及修改 configCompleteStatus
-      async setConfigAndCompleteStatus({ payload, callback }, { put }) {
+      async setConfigAndCompleteStatus(
+        { payload, callback }: any,
+        { put }: any,
+      ) {
         try {
           const { nodeLevelIndex, nodeProperties = {}, ...config } = payload;
           await put({
@@ -140,7 +172,7 @@ function createDataStore() {
         return initState();
       },
       // 根据接口数据回填
-      setWorkFlowNodes(state, { payload }) {
+      setWorkFlowNodes(state: any, { payload }: any) {
         try {
           const { graph } = JSON.parse(payload.visualConfig);
           if (graph) {
@@ -156,12 +188,15 @@ function createDataStore() {
         }
       },
       // 设置当前选中节点
-      setCurrentNode(state, { payload: { node } }) {
+      setCurrentNode(state: any, { payload: { node } }: any) {
         state.currentNode = node;
         return state;
       },
       // 给选目标节点添加子节点
-      insertNodeToTargetNode(state, { payload: { node, targetNode } }) {
+      insertNodeToTargetNode(
+        state: any,
+        { payload: { node, targetNode } }: any,
+      ) {
         const { workFlowNodes } = state;
 
         const [newNode, maxNodeId] = createNodesNodeId(
@@ -170,9 +205,11 @@ function createDataStore() {
         );
         workFlowNodes.maxNodeId = maxNodeId;
 
-        const indexArr = parseIndex(targetNode?.nodeLevelIndex || '0');
+        const indexArr: number[] = parseIndex(
+          targetNode?.nodeLevelIndex || '0',
+        );
         const targetNodeData = getTargetNode(indexArr, workFlowNodes);
-        const children = targetNodeData.children || [];
+        const children = targetNodeData?.children || [];
 
         children.push(newNode);
         targetNodeData.children = children;
@@ -181,7 +218,7 @@ function createDataStore() {
         return state;
       },
       // 删除节点
-      removeNode(state, { payload: { node, nodeLevelIndex } }) {
+      removeNode(state: any, { payload: { nodeLevelIndex } }: any) {
         const { workFlowNodes } = state;
         const indexArr = parseIndex(nodeLevelIndex);
         const parentLevelIndexArr = indexArr.slice(0, indexArr.length - 1);
@@ -197,7 +234,10 @@ function createDataStore() {
         return state;
       },
       // 插入兄弟的节点 order : 0, 1
-      insertBrotherNode(state, { payload: { node, nodeLevelIndex, order } }) {
+      insertBrotherNode(
+        state: any,
+        { payload: { node, nodeLevelIndex, order } }: any,
+      ) {
         const { workFlowNodes } = state;
         const insertOder = typeof order === 'number' ? order : 1;
         let newNode = node;
@@ -222,8 +262,8 @@ function createDataStore() {
       },
       // 替换PlaceHolder节点 后期会删掉此方法
       replacePlaceholderNode(
-        state,
-        { payload: { node, wantToReplaceNodeLevelIndex } },
+        state: any,
+        { payload: { node, wantToReplaceNodeLevelIndex } }: any,
       ) {
         const { currentNode, workFlowNodes } = state;
 
@@ -248,9 +288,7 @@ function createDataStore() {
         return state;
       },
       // 设置属性
-      setCurrentNodeConfig(state, { 
-        payload
-       }) {
+      setCurrentNodeConfig(state: any, { payload }: any) {
         const { currentNode, workFlowNodes } = state;
         const indexArr = parseIndex(currentNode.nodeLevelIndex);
         const targetNode = getTargetNode(indexArr, workFlowNodes);
@@ -265,8 +303,8 @@ function createDataStore() {
       },
       // 修改配置
       setNodePorpertiesAndValues(
-        state,
-        { payload: { nodeLevelIndex, ...keyValues } },
+        state: any,
+        { payload: { nodeLevelIndex, ...keyValues } }: any,
       ) {
         if (nodeLevelIndex) {
           const { workFlowNodes } = state;
@@ -278,8 +316,8 @@ function createDataStore() {
       },
       // 保存拖动的节点数据
       saveDragingNodeData(
-        state,
-        { payload: { node, nodeLevelIndex, parentNodeId } },
+        state: any,
+        { payload: { node, nodeLevelIndex, parentNodeId } }: any,
       ) {
         state.dragNodeData = {
           node,
@@ -288,13 +326,13 @@ function createDataStore() {
         };
       },
       //
-      setWorkFlowSaved(state) {
+      setWorkFlowSaved(state: any) {
         state.workFlowNodes.unSaved = false;
       },
     },
   };
 
-  const put = ({ type, ...others }) => {
+  const put = ({ type, ...others }: any) => {
     return new Promise(resolve => {
       const reducers = store.reducers;
       if (reducers[type]) {
@@ -305,11 +343,10 @@ function createDataStore() {
     });
   };
 
-  const debounceSubscribe = [];
+  const debounceSubscribe: any[] = [];
 
   const instance = {
-    dispatch({ type, ...others }) {
-      console.log(type);
+    dispatch({ type, ...others }: any) {
       let action = (type || '').split('/');
       if (action.length === 1) {
         action = action[0];
@@ -334,7 +371,7 @@ function createDataStore() {
     getState() {
       return { ...store.state };
     },
-    subscribe(callback) {
+    subscribe(callback: any) {
       debounceSubscribe.push(debounce(callback, 10));
     },
   };

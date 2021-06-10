@@ -4,7 +4,7 @@ import { NodeProps } from '../types';
 import IconCom from '../images/icons';
 import { mouseIsInDragEnterElementArea } from '../utils';
 
-function stopAndPrevent(evt) {
+function stopAndPrevent(evt: any) {
   evt.stopPropagation();
   evt.preventDefault();
 }
@@ -18,19 +18,19 @@ export default function Edge({
   workFlow,
   disabled,
 }: NodeProps) {
-  const container = useRef();
+  const container = useRef<HTMLDivElement>(null);
   const { dragNodeData } = workFlow;
   const [className, setClassName] = useState(toggoleClassName());
   const [visible, setVisible] = useState(false);
 
-  const ondragover = evt => {
+  const ondragover = (evt: any) => {
     stopAndPrevent(evt);
   };
 
-  const onDrop = evt => {
+  const onDrop = (evt: any) => {
     stopAndPrevent(evt);
     const dragData = dragNodeData;
-    if (!dragData.node || dragData.nodeLevelIndex === nodeLevelIndex) return;
+    if (!dragData.node || nodeLevelIndex.indexOf(dragData.nodeLevelIndex) === 0) return;
     dispatch({
       type: 'workFlow/onDragSortEnd',
       payload: {
@@ -38,14 +38,14 @@ export default function Edge({
         dragNodeLevelIndex: dragData.nodeLevelIndex,
         edgeNode: node,
         edgeNodeLevelIndex: nodeLevelIndex,
-        isSameParnet: dragData.parentNodeId === parentNode.nodeId,
+        isSameParnet: dragData.parentNodeId === parentNode?.nodeId,
       },
     });
     setClassName(toggoleClassName());
     setVisible(false);
   };
 
-  function onDragEnter(evt) {
+  function onDragEnter(evt: any) {
     stopAndPrevent(evt);
     // 当移动节点为自身时不操作
     if (workFlow.dragNodeData.node.nodeId === node.nodeId) return;
@@ -54,15 +54,14 @@ export default function Edge({
     setVisible(true);
   }
 
-  function onDragLeave(evt) {
+  function onDragLeave(evt: any) {
     stopAndPrevent(evt);
     if (
       !mouseIsInDragEnterElementArea(
-        container.current.getBoundingClientRect(),
+        container?.current?.getBoundingClientRect(),
         evt,
       )
     ) {
-      console.log('onDragLeave');
       setClassName(toggoleClassName());
       setVisible(false);
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { NodeProps } from '../types';
 import { setDragImage } from '../utils';
 
 export default function DragContainer({
@@ -7,15 +8,13 @@ export default function DragContainer({
   parentNode,
   dispatch,
   children,
-  workFlow,
-}:any) {
-  const onDragStart = evt => {
+}: NodeProps) {
+  const onDragStart = (evt: any) => {
     evt.stopPropagation();
     if (!node.draggable) {
       evt.preventDefault();
       return;
     }
-    console.log(node);
     setDragImage(evt, evt.target.querySelector('svg'));
 
     dispatch({
@@ -23,12 +22,12 @@ export default function DragContainer({
       payload: {
         node,
         nodeLevelIndex,
-        parentNodeId: parentNode.nodeId,
+        parentNodeId: parentNode?.nodeId,
       },
     });
   };
 
-  const onDragEnd = (evt, node) => {
+  const onDragEnd = () => {
     // evt.stopPropagation();
     // if (workFlow.dragEnterNode && workFlow.dragNodeData.node) {
     //   dispatch({

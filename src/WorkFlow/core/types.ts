@@ -7,7 +7,7 @@ export interface NodeConfig {
   nodeType: string;
   icon?: string;
   label?: string;
-  children?: []; // 插入的子节点
+  children?: any[]; // 插入的子节点
   childrenFlex?: boolean; // 自己横向或纵向排列
   childrenAbleTypes?: [] | null; // 允许插入的子节点NodeType
   noEdge?: boolean; // 是否有后面的箭头
@@ -26,6 +26,8 @@ export interface NodeProps {
   nodeLevelIndex: string;
   disabled?: boolean;
   dispatch: (arg: object) => void;
-  workFlow?: object;
-  children?: [];
+  workFlow?: any;
+  children?: any;
+  className?: string;
+  [propName: string]: any;
 }

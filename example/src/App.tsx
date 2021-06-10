@@ -1,10 +1,12 @@
 import React from 'react'
 
-import { ExampleComponent } from 'weimob-workflow'
+import { parseIndex } from 'weimob-workflow'
 import 'weimob-workflow/dist/index.css'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return <div>
+    {parseIndex(123)}
+  </div>
 }
 
 export default App

@@ -9,8 +9,8 @@ const style = {
   color: '#40a9ff',
 };
 
-export default function AddBtn({onAddNode }:any) {
-  const addChildren = (evt:any) => {
+export default function AddBtn({ onAddNode }: any) {
+  const addChildren = (evt: any) => {
     evt.stopPropagation();
     onAddNode(evt);
   };
@@ -22,7 +22,7 @@ export default function AddBtn({onAddNode }:any) {
   );
 }
 
-export function AddBtnOnline(props: React.FC<Props>) {
+export function AddBtnOnline(props: any) {
   return (
     <div className="add-node-btn-container">
       <AddBtn {...props} />

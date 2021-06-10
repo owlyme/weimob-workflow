@@ -1,7 +1,5 @@
-/* eslint-disable */
 import React, { useState, useEffect, useRef } from 'react';
-import { NodeProps } from '../types';
-import Edge from '../edge';
+import { NodeProps, NodeConfig } from '../types';
 
 function WarnCircle() {
   return (
@@ -19,21 +17,19 @@ function WarnCircle() {
   );
 }
 
-export default function NodeContainer({
+export function NodeContainer({
   node,
-  parentNode,
   nodeLevelIndex,
   className,
   children,
   onAfterNodesChange,
   dispatch,
   workFlow,
-  disabled,
 }: NodeProps) {
+  const contianerRef = useRef<HTMLDivElement>(null);
   const [hoverClassName, setHoverClassName] = useState('');
-  const contianerRef = useRef();
 
-  function setCurrentNode(node, nodeLevelIndex) {
+  function setCurrentNode(node: NodeConfig, nodeLevelIndex: string) {
     dispatch({
       type: 'workFlow/setCurrentNode',
       payload: {
@@ -41,23 +37,23 @@ export default function NodeContainer({
       },
     });
   }
-  function onNodeClick(evt, node, nodeLevelIndex) {
+  function onNodeClick(evt: any, node: NodeConfig, nodeLevelIndex: string) {
     evt.stopPropagation();
     setCurrentNode(node, nodeLevelIndex);
   }
 
   useEffect(() => {
     if (contianerRef.current) {
-      onAfterNodesChange(node, contianerRef.current);
+      onAfterNodesChange && onAfterNodesChange(contianerRef?.current);
     }
-  }, [contianerRef]);
+  }, [contianerRef, onAfterNodesChange]);
 
-  function onMouseOver(evt) {
+  function onMouseOver(evt: any) {
     evt.stopPropagation();
     setHoverClassName('mouse-hover');
   }
 
-  function onMouseOut(evt) {
+  function onMouseOut(evt: any) {
     evt.stopPropagation();
     evt.currentTarget.focus();
     setHoverClassName('');
@@ -65,16 +61,7 @@ export default function NodeContainer({
       setCurrentNode(node, nodeLevelIndex);
     }
   }
-
-  function stopAndPrevent(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
-  }
-
-  function onDragEnter(evt) {
-    stopAndPrevent(evt);
-  }
-
+  /* eslint-disable */
   return (
     <div
       ref={contianerRef}
@@ -94,3 +81,5 @@ export default function NodeContainer({
     </div>
   );
 }
+
+export default React.memo(NodeContainer);
