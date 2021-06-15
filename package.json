@@ -1,13 +1,13 @@
 {
   "name": "weimob-workflow",
-  "version": "1.0.5",
-  "description": "owlyme",
-  "author": "",
+  "version": "1.0.7",
+  "description": "工作流",
+  "author": "owlyme",
   "license": "MIT",
   "repository": "/weimob-workflow",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
-  "source": "src/WorkFlow/core/index.tsx",
+  "source": "src/index.tsx",
   "engines": {
     "node": ">=10"
   },
