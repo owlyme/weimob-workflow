@@ -1,6 +1,7 @@
 export { 
   createWorkflowStore, 
   getWorkFlowNodes,
+  parseIndex,
   paletteHOC,
   dislayHOC,
   Direction,

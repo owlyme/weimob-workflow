@@ -47,7 +47,7 @@ function createDataStore() {
                 nodeLevelIndex: edgeNodeLevelIndex,
                 order:
                   isSameParnet &&
-                  dargNodeIndexArr[dargNodeIndexArr.length - 1] >
+                    dargNodeIndexArr[dargNodeIndexArr.length - 1] >
                     edgeNodeIndexArr[edgeNodeIndexArr.length - 1]
                     ? 1
                     : 0,
@@ -59,7 +59,7 @@ function createDataStore() {
             if (
               dargNodeIndexArr.length < edgeNodeIndexArr.length &&
               dargNodeIndexArr[dargNodeIndexArr.length - 1] <
-                edgeNodeIndexArr[dargNodeIndexArr.length - 1] &&
+              edgeNodeIndexArr[dargNodeIndexArr.length - 1] &&
               isSameAncestorsLevel(dragNodeLevelIndex, edgeNodeLevelIndex)
             ) {
               newEdgeNodeLevelIndex = edgeNodeIndexArr.map((i, index) => {
@@ -173,19 +173,12 @@ function createDataStore() {
       },
       // 根据接口数据回填
       setWorkFlowNodes(state: any, { payload }: any) {
-        try {
-          const { graph } = JSON.parse(payload.visualConfig);
-          if (graph) {
-            state.workFlowNodes = graph;
-          } else {
-            state.workFlowNodes = initState().workFlowNodes;
-          }
-          return state;
-        } catch (err) {
-          state = initState();
-          console.log(err);
-          return state;
+        if (payload) {
+          state.workFlowNodes = payload;
+        } else {
+          state.workFlowNodes = initState().workFlowNodes;
         }
+        return state;
       },
       // 设置当前选中节点
       setCurrentNode(state: any, { payload: { node } }: any) {
@@ -363,7 +356,6 @@ function createDataStore() {
         reducers[action](store.state, others);
       }
 
-      // debounceSubscribe(store.state);
       debounceSubscribe.forEach(sub => {
         sub(store.state);
       });

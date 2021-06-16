@@ -1,6 +1,6 @@
 {
   "name": "weimob-workflow",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "工作流",
   "author": "owlyme",
   "license": "MIT",
@@ -26,7 +26,7 @@
   "peerDependencies": {
     "@ant-design/icons": "^4.6.2",
     "antd": "^4.16.1",
-    "react": "^17.0.2"
+    "react": "^16.8.4"
   },
   "devDependencies": {
     "@ant-design/icons": "^4.6.2",
@@ -35,8 +35,8 @@
     "@testing-library/user-event": "^7.2.1",
     "@types/jest": "^25.1.4",
     "@types/node": "^12.12.38",
-    "@types/react": "^16.9.27",
-    "@types/react-dom": "^16.9.7",
+    "@types/react": "^17.0.11",
+    "@types/react-dom": "^17.0.7",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "antd": "^4.16.1",
@@ -57,10 +57,10 @@
     "microbundle-crl": "^0.13.10",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.4",
-    "react": "^17.0.2",
-    "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.1",
-    "typescript": "^3.7.5"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-scripts": "^4.0.3",
+    "typescript": "^4.3.2"
   },
   "files": [
     "dist"
