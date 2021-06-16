@@ -1,6 +1,6 @@
 import React from 'react';
 import ChildNode from './ChildNode';
-import { NodeProps, NodeConfig } from '../../core/types';
+import { NodeProps } from '../../core/types';
 import {
   NODE_TYPE_PARALLEL,
   NODE_TYPE_PARALLEL_CHILD,
@@ -55,4 +55,4 @@ ParallelNode.config = {
       ...ChildNode.config,
     },
   ],
-} as NodeConfig;
+}

@@ -9,21 +9,19 @@ export default function TransformerNode({
   IconCom,
   disabled,
 }: NodeProps) {
-  const initData = node[CONFIG_KEY] || { cfg: { protocol: 'dubbo', cfg: {} } };
-  const { desc } = initData;
+  const initData:any = node[CONFIG_KEY]
+
   return (
-    <>
       <div className="node-container-header">
         <IconCom type={node.icon} />
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <span className="node-name">{node.label}</span>
-          <span className="node-desc">{desc}</span>
+          <span className="node-desc">{initData?.desc}</span>
         </div>
         {!disabled && (
           <NodeActions node={node} nodeLevelIndex={nodeLevelIndex} />
         )}
       </div>
-    </>
   );
 }
 

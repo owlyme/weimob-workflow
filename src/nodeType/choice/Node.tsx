@@ -19,7 +19,6 @@ export default function ChoiceNode({
 }: NodeProps) {
   const initData:any = node[CONFIG_KEY];
   return (
-    <>
       <CollapseContainer
         header={
           <div className="node-container-header">
@@ -36,7 +35,6 @@ export default function ChoiceNode({
       >
         <div>{children}</div>
       </CollapseContainer>
-    </>
   );
 }
 

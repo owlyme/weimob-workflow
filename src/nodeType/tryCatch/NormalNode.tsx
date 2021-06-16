@@ -28,7 +28,7 @@ export default function Normal({
       type: 'workFlow/setNodeConfigStatus',
       payload: {
         nodeLevelIndex,
-        status: !!node.children.length,
+        status: !!(node.children && node.children.length),
       },
     });
   }, [node, nodeLevelIndex, dispatch]);

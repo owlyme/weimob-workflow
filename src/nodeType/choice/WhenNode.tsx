@@ -34,14 +34,14 @@ export default function When({
       type: 'workFlow/setNodePorpertiesAndValues',
       payload: {
         nodeLevelIndex,
-        configCompleteStatus: node.weimobConfigSaved && !!node.children.length,
-        deleteForbidden: parentNode?.children.length <= 2,
+        configCompleteStatus: node.weimobConfigSaved && node.children && node.children.length,
+        deleteForbidden: parentNode && parentNode?.children && parentNode.children?.length <= 2,
       },
     });
   }, [node, nodeLevelIndex, parentNode, dispatch]);
 
   const [isDragEnter, setIsDragEnter] = useState(false);
-  const addChildren = evt => {
+  const addChildren = (evt: MouseEvent) => {
     evt.stopPropagation();
     const node = {
       ...createConfig(),
@@ -70,7 +70,7 @@ export default function When({
     >
       <div className="node-container-header">
         <div>{`When-${index}`}</div>
-        {parentNode?.children.length > 2 && !disabled && (
+        {parentNode?.children && parentNode?.children.length > 2 && !disabled && (
           <NodeActions node={node} nodeLevelIndex={nodeLevelIndex} />
         )}
       </div>

@@ -35,7 +35,7 @@ export default function Catch({
       type: 'workFlow/setNodeConfigStatus',
       payload: {
         nodeLevelIndex,
-        status: node.weimobConfigSaved && !!node.children.length,
+        status: node.weimobConfigSaved && node.children && node.children.length,
       },
     });
   }, [node, nodeLevelIndex, dispatch]);
@@ -45,15 +45,15 @@ export default function Catch({
       type: 'workFlow/setNodePorpertiesAndValues',
       payload: {
         nodeLevelIndex,
-        configCompleteStatus: node.weimobConfigSaved && !!node.children.length,
-        deleteForbidden: parentNode?.children.length <= 3,
+        configCompleteStatus: node.weimobConfigSaved && node.children && node.children.length,
+        deleteForbidden: parentNode?.children && parentNode?.children.length <= 3,
       },
     });
   }, [node, nodeLevelIndex, parentNode, dispatch]);
 
   const [isDragEnter, setIsDragEnter] = useState(false);
 
-  const addChildren = evt => {
+  const addChildren = (evt: MouseEvent) => {
     evt.stopPropagation();
     const node = {
       ...createConfig(),
@@ -68,7 +68,7 @@ export default function Catch({
     });
   };
 
-  const index = parseIndex(nodeLevelIndex).pop();
+  const index:number = parseIndex(nodeLevelIndex).pop() || 0;
 
   return (
     <DropContainer
@@ -82,7 +82,7 @@ export default function Catch({
       <div className="catch-container">
         <div className="node-container-header">
           <div style={{ fontSize: 12 }}>{`Catch-${index - 1}`}</div>
-          {parentNode?.children.length > 3 && !disabled && (
+          {parentNode?.children && parentNode?.children.length > 3 && !disabled && (
             <NodeActions node={node} nodeLevelIndex={nodeLevelIndex} />
           )}
         </div>

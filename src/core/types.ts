@@ -15,8 +15,8 @@ export interface NodeConfig {
   showChildAtions?: string;
   weimob_cfg?: object;
   weimobConfigSaved?: boolean;
-  configCompleteStatus?: false; // 是否显示左上角红点提示
-  deleteForbidden?: false;
+  configCompleteStatus?: boolean | undefined; // 是否显示左上角红点提示
+  deleteForbidden?: boolean | undefined;
   [propName: string]: any;
 }
 

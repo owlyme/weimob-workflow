@@ -35,14 +35,14 @@ export default function ChildNode({
       type: 'workFlow/setNodePorpertiesAndValues',
       payload: {
         nodeLevelIndex,
-        configCompleteStatus: !!node.children.length,
-        deleteForbidden: parentNode?.children.length <= 1,
+        configCompleteStatus: node?.children && node?.children.length,
+        deleteForbidden: parentNode?.children && parentNode?.children.length <= 1,
       },
     });
   }, [node, nodeLevelIndex, parentNode, dispatch]);
 
   const [isDragEnter, setIsDragEnter] = useState(false);
-  const addChildren = evt => {
+  const addChildren = (evt: MouseEvent) => {
     evt.stopPropagation();
 
     const node = {
@@ -71,7 +71,7 @@ export default function ChildNode({
       <div className="parallel-child-container">
         <div className="node-container-header">
           <div>{`Pipeline-${index}`}</div>
-          {parentNode?.children.length > 1 && !disabled && (
+          {parentNode?.children && parentNode?.children.length > 1 && !disabled && (
             <NodeActions node={node} nodeLevelIndex={nodeLevelIndex} />
           )}
         </div>
