@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { NODE_TYPE_CHOICE_WHEN, NODE_TYPE_CHOICE_DEFAULT, CONFIG_KEY } from '../../constant';
-import { NodeProps, NodeConfig } from '../../core/types';
+import React, { useState } from 'react';
+import { NodeProps } from '../../core/types';
 import {
-  AddBtnOnline,
-  NodeActions,
-  parseIndex,
   DropContainer,
+  NodeActions,
+  AddBtnOnline,
+  parseIndex
 } from '../../core';
-import { PurePlaceholder } from '../nodePlaceholder/Node';
 
+import { PurePlaceholder } from './PlaceholderNode';
 
 export default function DropNode({
   node,
@@ -17,9 +16,11 @@ export default function DropNode({
   workFlow,
   IconCom,
   children,
-  header,
-  footer,
+  disabled,
+  onAddChildren,
+  showIndex
 }: NodeProps) {
+  const index = parseIndex(nodeLevelIndex).pop();
   const [isDragEnter, setIsDragEnter] = useState(false);
 
   return (
@@ -31,7 +32,13 @@ export default function DropNode({
       onContainerDragEnter={setIsDragEnter}
       onContainerDragLeave={setIsDragEnter}
     >
-      { header }
+      <div className="node-container-header">
+        <div>{ node.label + `${showIndex ? ("-" + index) : ''}`}</div>
+        {showIndex && !disabled && (
+          <NodeActions node={node} dispatch={dispatch} nodeLevelIndex={nodeLevelIndex} />
+        )}
+      </div>
+
       {node.children?.length ? (
         children
       ) : (
@@ -39,76 +46,12 @@ export default function DropNode({
           {isDragEnter && <IconCom type={workFlow.dragNodeData?.node?.icon} />}
         </PurePlaceholder>
       )}
-      { footer }
+      {
+        showIndex  && <AddBtnOnline onAddNode={onAddChildren} />
+      }
+      
     </DropContainer>
   );
 }
-
-
-export  function MultiDropNode(props: NodeProps) {
-  const {
-    node,
-    nodeLevelIndex,
-    children,
-    dispatch,
-    parentNode,
-    workFlow,
-    disabled,
-    IconCom,
-  } = props;
-  useEffect(() => {
-    dispatch({
-      type: 'workFlow/setNodePorpertiesAndValues',
-      payload: {
-        nodeLevelIndex,
-        configCompleteStatus: node.weimobConfigSaved && node.children && node.children.length,
-        deleteForbidden: parentNode && parentNode?.children && parentNode.children?.length <= 2,
-      },
-    });
-  }, [node, nodeLevelIndex, parentNode, dispatch]);
-
-  const [isDragEnter, setIsDragEnter] = useState(false);
-  const addChildren = (evt: MouseEvent) => {
-    evt.stopPropagation();
-    const node = {
-      ...createConfig(),
-    };
-
-    dispatch({
-      type: 'workFlow/insertBrotherNode',
-      payload: {
-        node,
-        nodeLevelIndex,
-      },
-    });
-  };
-
-  const index = parseIndex(nodeLevelIndex).pop();
-
-  return (
-    <DropNode
-      {...props}
-      header={
-        <div className="node-container-header">
-          <div>{`When-${index}`}</div>
-          {parentNode?.children && parentNode?.children.length > 2 && !disabled && (
-            <NodeActions 
-            node={node}
-            dispatch={dispatch}
-            nodeLevelIndex={nodeLevelIndex} />
-          )}
-        </div>
-      }
-      footer={<AddBtnOnline onAddNode={addChildren} />}
-    >
-    </DropNode>
-  );
-}
-
-
-
-
-
-
 
 

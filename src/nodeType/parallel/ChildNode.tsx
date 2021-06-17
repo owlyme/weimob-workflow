@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { NODE_TYPE_PARALLEL_CHILD } from '../../constant';
 import { NodeProps, NodeConfig } from '../../core/types';
-import {
-  AddBtnOnline,
-  parseIndex,
-  NodeActions,
-  DropContainer,
-} from '../../core';
-import { PurePlaceholder } from '../nodePlaceholder/Node';
+import { DropNode } from "../baseNode"
 
-const config: NodeConfig = {
+export const config: NodeConfig = {
   label: 'child',
   nodeType: NODE_TYPE_PARALLEL_CHILD,
   draggable: false,
@@ -20,28 +14,26 @@ const config: NodeConfig = {
   children: [],
 };
 
-export default function ChildNode({
-  node,
-  nodeLevelIndex,
-  children,
-  dispatch,
-  parentNode,
-  workFlow,
-  disabled,
-  IconCom,
-}: NodeProps) {
+export default function ChildNode(props: NodeProps) {
+  const {
+    node,
+    nodeLevelIndex,
+    dispatch,
+    parentNode,
+    disabled,
+  } = props
+  const deleteForbidden = parentNode?.children && parentNode?.children.length <= 1;
   useEffect(() => {
     dispatch({
       type: 'workFlow/setNodePorpertiesAndValues',
       payload: {
         nodeLevelIndex,
         configCompleteStatus: node?.children && node?.children.length,
-        deleteForbidden: parentNode?.children && parentNode?.children.length <= 1,
+        deleteForbidden
       },
     });
   }, [node, nodeLevelIndex, parentNode, dispatch]);
 
-  const [isDragEnter, setIsDragEnter] = useState(false);
   const addChildren = (evt: MouseEvent) => {
     evt.stopPropagation();
 
@@ -57,41 +49,13 @@ export default function ChildNode({
       },
     });
   };
-  const index = parseIndex(nodeLevelIndex).pop();
 
   return (
-    <DropContainer
-      node={node}
-      dispatch={dispatch}
-      workFlow={workFlow}
-      nodeLevelIndex={nodeLevelIndex}
-      onContainerDragEnter={setIsDragEnter}
-      onContainerDragLeave={setIsDragEnter}
-    >
-      <div className="parallel-child-container">
-        <div className="node-container-header">
-          <div>{`Pipeline-${index}`}</div>
-          {parentNode?.children && parentNode?.children.length > 1 && !disabled && (
-            <NodeActions node={node} nodeLevelIndex={nodeLevelIndex} />
-          )}
-        </div>
-
-        {node.children?.length ? (
-          children
-        ) : (
-          <PurePlaceholder>
-            {isDragEnter && (
-              <IconCom type={workFlow.dragNodeData?.node?.icon} />
-            )}
-          </PurePlaceholder>
-        )}
-
-        <AddBtnOnline onAddNode={addChildren} />
-      </div>
-    </DropContainer>
+    <DropNode 
+    {...props}
+    disabled={deleteForbidden && !disabled}
+    showIndex
+    onAddChildren={addChildren}>
+    </DropNode>
   );
 }
-
-ChildNode.config = {
-  ...config,
-};

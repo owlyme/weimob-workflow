@@ -1,13 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { NODE_TYPE_CHOICE_WHEN } from '../../constant';
 import { NodeProps, NodeConfig } from '../../core/types';
-import {
-  AddBtnOnline,
-  NodeActions,
-  parseIndex,
-  DropContainer,
-} from '../../core';
-import { PurePlaceholder } from '../nodePlaceholder/Node';
+import { DropNode } from "../baseNode"
 
 const createConfig = (): NodeConfig => ({
   label: 'When',
@@ -19,28 +13,27 @@ const createConfig = (): NodeConfig => ({
   children: [],
 });
 
-export default function When({
-  node,
-  nodeLevelIndex,
-  children,
-  dispatch,
-  parentNode,
-  workFlow,
-  disabled,
-  IconCom,
-}: NodeProps) {
+export default function When(props: NodeProps) {
+  const {
+    node,
+    nodeLevelIndex,
+    dispatch,
+    parentNode,
+    disabled,
+  } = props;
+
+  const deleteForbidden = parentNode && parentNode?.children && parentNode.children?.length <= 2;
   useEffect(() => {
     dispatch({
       type: 'workFlow/setNodePorpertiesAndValues',
       payload: {
         nodeLevelIndex,
         configCompleteStatus: node.weimobConfigSaved && node.children && node.children.length,
-        deleteForbidden: parentNode && parentNode?.children && parentNode.children?.length <= 2,
+        deleteForbidden
       },
     });
   }, [node, nodeLevelIndex, parentNode, dispatch]);
 
-  const [isDragEnter, setIsDragEnter] = useState(false);
   const addChildren = (evt: MouseEvent) => {
     evt.stopPropagation();
     const node = {
@@ -56,35 +49,13 @@ export default function When({
     });
   };
 
-  const index = parseIndex(nodeLevelIndex).pop();
-
   return (
-    <DropContainer
-      className="when-container"
-      node={node}
-      dispatch={dispatch}
-      workFlow={workFlow}
-      nodeLevelIndex={nodeLevelIndex}
-      onContainerDragEnter={setIsDragEnter}
-      onContainerDragLeave={setIsDragEnter}
-    >
-      <div className="node-container-header">
-        <div>{`When-${index}`}</div>
-        {parentNode?.children && parentNode?.children.length > 2 && !disabled && (
-          <NodeActions node={node} nodeLevelIndex={nodeLevelIndex} />
-        )}
-      </div>
-
-      {node.children?.length ? (
-        children
-      ) : (
-        <PurePlaceholder>
-          {isDragEnter && <IconCom type={workFlow.dragNodeData?.node?.icon} />}
-        </PurePlaceholder>
-      )}
-
-      <AddBtnOnline onAddNode={addChildren} />
-    </DropContainer>
+    <DropNode 
+    {...props}
+    disabled={deleteForbidden && !disabled}
+    showIndex
+    onAddChildren={addChildren}>
+    </DropNode>
   );
 }
 

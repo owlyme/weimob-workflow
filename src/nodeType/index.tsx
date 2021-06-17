@@ -1,19 +1,12 @@
 import React from 'react';
-import NodePlaceholder from './nodePlaceholder/Node';
-import NodeTypeUndefined from './nodeTypeUndefined/Node';
+import { NodePlaceholder, UndefinedNode } from './baseNode';
 import ListenerNode, { ListenerConfig } from './listener';
-import {
-  ChoiceNode,
-  choiceConfig,
-  WhenNode,
-  DefaultNode,
-} from './choice';
-
+import { ChoiceNode, choiceConfig, WhenNode, DefaultNode } from './choice';
 import ProcessorNode, { processorconfig } from './processor';
-import ParallelNode from './parallel/Node';
-import TryCatchNode from './tryCatch/Node';
+import { ParallelNode, ParallelChildNode, parallelConfig } from './parallel';
+import { TryCatchNode, NormalNode, FinallyNode, CatchNode, tryCatchConfig } from './tryCatch';
 import ConnectorNode, { connectorConfig } from './connector';
-import Transformer, {transformerConfig} from './transformer';
+import Transformer, { transformerConfig } from './transformer';
 
 import {
   NODE_TYPE_LISTENER,
@@ -33,6 +26,7 @@ import {
 } from '../constant';
 import { NodeProps, NodeConfig } from '../core/types';
 
+
 export const NodeTypeComponents = {
   [NODE_TYPE_LISTENER]: ListenerNode,
   [NODE_TYPE_PROCESSOR]: ProcessorNode,
@@ -40,12 +34,12 @@ export const NodeTypeComponents = {
   [NODE_TYPE_CHOICE_WHEN]: WhenNode,
   [NODE_TYPE_CHOICE_DEFAULT]: DefaultNode,
   [NODE_TYPE_PARALLEL]: ParallelNode,
-  [NODE_TYPE_PARALLEL_CHILD]: ParallelNode.ChildNode,
+  [NODE_TYPE_PARALLEL_CHILD]: ParallelChildNode,
   [NODE_TYPE_PLACEHOLDER]: NodePlaceholder,
   [NODE_TYPE_TRY]: TryCatchNode,
-  [NODE_TYPE_TRY_NORMAL]: TryCatchNode.Normal,
-  [NODE_TYPE_TRY_CATCH]: TryCatchNode.Catch,
-  [NODE_TYPE_TRY_FINALLY]: TryCatchNode.Finally,
+  [NODE_TYPE_TRY_NORMAL]: NormalNode,
+  [NODE_TYPE_TRY_CATCH]: CatchNode,
+  [NODE_TYPE_TRY_FINALLY]: FinallyNode,
   [NODE_TYPE_TRANSFORMER]: Transformer,
   [NODE_TYPE_CONNECTOR]: ConnectorNode,
 };
@@ -54,8 +48,8 @@ export const NodeTypeConfigs = {
   [NODE_TYPE_LISTENER]: ListenerConfig,
   [NODE_TYPE_PROCESSOR]: processorconfig,
   [NODE_TYPE_CHOICE]: choiceConfig,
-  [NODE_TYPE_PARALLEL]: ParallelNode.config,
-  [NODE_TYPE_TRY]: TryCatchNode.config,
+  [NODE_TYPE_PARALLEL]: parallelConfig,
+  [NODE_TYPE_TRY]: tryCatchConfig,
   [NODE_TYPE_CONNECTOR]: connectorConfig,
   [NODE_TYPE_TRANSFORMER]: transformerConfig
 };
@@ -63,7 +57,7 @@ export const NodeTypeConfigs = {
 function getNodeTypeComp(nodeType: any) {
   return NodeTypeComponents[nodeType]
     ? NodeTypeComponents[nodeType]
-    : NodeTypeUndefined;
+    : UndefinedNode;
 }
 
 interface UseProps {

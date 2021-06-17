@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { NODE_TYPE_TRY_NORMAL, CONFIG_KEY } from '../../constant';
 import { NodeProps, NodeConfig } from '../../core/types';
-import { PurePlaceholder } from '../nodePlaceholder/Node';
-import { DropContainer } from '../../core';
+import { DropNode } from "../baseNode"
 
 const createConfig = (): NodeConfig => ({
   label: 'Normal',
@@ -15,14 +14,14 @@ const createConfig = (): NodeConfig => ({
   deleteForbidden: true,
   children: [],
 });
-export default function Normal({
-  node,
-  nodeLevelIndex,
-  dispatch,
-  workFlow,
-  children,
-  IconCom,
-}: NodeProps) {
+
+export default function Normal(props: NodeProps) {
+  const {
+    node,
+    nodeLevelIndex,
+    dispatch,
+  } = props;
+
   useEffect(() => {
     dispatch({
       type: 'workFlow/setNodeConfigStatus',
@@ -33,30 +32,7 @@ export default function Normal({
     });
   }, [node, nodeLevelIndex, dispatch]);
 
-  const [isDragEnter, setIsDragEnter] = useState(false);
-
-  return (
-    <DropContainer
-      node={node}
-      dispatch={dispatch}
-      workFlow={workFlow}
-      nodeLevelIndex={nodeLevelIndex}
-      onContainerDragEnter={setIsDragEnter}
-      onContainerDragLeave={setIsDragEnter}
-    >
-      <div className="node-container-header">
-        <div style={{ fontSize: 12 }}>Normal</div>
-      </div>
-
-      {node.children?.length ? (
-        children
-      ) : (
-        <PurePlaceholder>
-          {isDragEnter && <IconCom type={workFlow.dragNodeData?.node?.icon} />}
-        </PurePlaceholder>
-      )}
-    </DropContainer>
-  );
+  return <DropNode {...props}></DropNode>
 }
 
-Normal.config = createConfig();
+export const config = createConfig();

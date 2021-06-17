@@ -1,13 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { NODE_TYPE_TRY_CATCH, CONFIG_KEY } from '../../constant';
 import { NodeProps, NodeConfig } from '../../core/types';
-import {
-  AddBtnOnline,
-  NodeActions,
-  parseIndex,
-  DropContainer,
-} from '../../core';
-import { PurePlaceholder } from '../nodePlaceholder/Node';
+import { DropNode } from "../baseNode"
 
 const createConfig = (): NodeConfig => ({
   label: 'Catch',
@@ -20,16 +14,15 @@ const createConfig = (): NodeConfig => ({
   children: [],
 });
 
-export default function Catch({
-  node,
-  nodeLevelIndex,
-  children,
-  dispatch,
-  workFlow,
-  parentNode,
-  IconCom,
-  disabled,
-}: NodeProps) {
+export default function Catch(props: NodeProps) {
+  const {
+    node,
+    nodeLevelIndex,
+    dispatch,
+    parentNode,
+    disabled,
+  } = props;
+  
   useEffect(() => {
     dispatch({
       type: 'workFlow/setNodeConfigStatus',
@@ -40,18 +33,19 @@ export default function Catch({
     });
   }, [node, nodeLevelIndex, dispatch]);
 
+  const deleteForbidden = parentNode?.children && parentNode?.children.length <= 3;
   useEffect(() => {
     dispatch({
       type: 'workFlow/setNodePorpertiesAndValues',
       payload: {
         nodeLevelIndex,
         configCompleteStatus: node.weimobConfigSaved && node.children && node.children.length,
-        deleteForbidden: parentNode?.children && parentNode?.children.length <= 3,
+        deleteForbidden
       },
     });
   }, [node, nodeLevelIndex, parentNode, dispatch]);
 
-  const [isDragEnter, setIsDragEnter] = useState(false);
+
 
   const addChildren = (evt: MouseEvent) => {
     evt.stopPropagation();
@@ -68,38 +62,12 @@ export default function Catch({
     });
   };
 
-  const index:number = parseIndex(nodeLevelIndex).pop() || 0;
-
-  return (
-    <DropContainer
-      node={node}
-      dispatch={dispatch}
-      workFlow={workFlow}
-      nodeLevelIndex={nodeLevelIndex}
-      onContainerDragEnter={setIsDragEnter}
-      onContainerDragLeave={setIsDragEnter}
-    >
-      <div className="catch-container">
-        <div className="node-container-header">
-          <div style={{ fontSize: 12 }}>{`Catch-${index - 1}`}</div>
-          {parentNode?.children && parentNode?.children.length > 3 && !disabled && (
-            <NodeActions node={node} nodeLevelIndex={nodeLevelIndex} />
-          )}
-        </div>
-
-        {node.children?.length ? (
-          children
-        ) : (
-          <PurePlaceholder>
-            {isDragEnter && (
-              <IconCom type={workFlow.dragNodeData?.node?.icon} />
-            )}
-          </PurePlaceholder>
-        )}
-        <AddBtnOnline onAddNode={addChildren} />
-      </div>
-    </DropContainer>
-  );
+  return <DropNode
+    {...props}
+    disabled={deleteForbidden && !disabled}
+    showIndex
+    onAddChildren={addChildren}>
+  </DropNode>
 }
 
-Catch.config = createConfig();
+export const config = createConfig();
