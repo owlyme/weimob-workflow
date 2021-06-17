@@ -88,4 +88,4 @@ export default function When({
   );
 }
 
-When.config = createConfig();
+export const config = createConfig();

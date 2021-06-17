@@ -1,12 +1,9 @@
 import React from 'react'
-
-import { parseIndex } from 'weimob-workflow'
-import 'weimob-workflow/dist/index.css'
+import Playground from "./pages/Playground"
+import 'antd/dist/antd.css';
 
 const App = () => {
-  return <div>
-    {parseIndex(123)}
-  </div>
+  return <Playground />
 }
 
 export default App

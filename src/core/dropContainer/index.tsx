@@ -15,7 +15,8 @@ export default function DropContainer({
   const container: React.RefObject<any> = useRef({});
 
   function onDragEnter(): void {
-    const children = workFlow.dragNodeData.node.children;
+
+    const children = workFlow.dragNodeData.node?.children;
     // 当移动节点为当前节点的父级时不操作
     if (
       container.current &&
@@ -45,6 +46,7 @@ export default function DropContainer({
         });
       } else {
         // 当移动节点为当前节点的父级时不操作
+        console.log(workFlow.dragNodeData, nodeLevelIndex)
         if (nodeLevelIndex.indexOf(workFlow.dragNodeData.nodeLevelIndex) === 0) return;
 
         dispatch({

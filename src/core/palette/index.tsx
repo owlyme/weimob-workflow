@@ -109,6 +109,7 @@ export default function paletteHOC (Node:any) {
           dispatch={dispatch}
           workFlow={workFlow}
           node={workFlow.workFlowNodes}
+          nodeLevelIndex="0"
         >
           {renderNodeList(workFlow.workFlowNodes || {})}
         </DropContainer>

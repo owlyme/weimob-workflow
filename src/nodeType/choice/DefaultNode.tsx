@@ -14,11 +14,7 @@ const createConfig = (): NodeConfig => ({
   [CONFIG_KEY]: { conditionType: 'default' },
   showChildAtions: 'always',
   deleteForbidden: true,
-  children: [
-    // {
-    //   ...NodePlaceholderConfig,
-    // },
-  ],
+  children: [],
 });
 export default function Default({
   node,
@@ -53,4 +49,4 @@ export default function Default({
   );
 }
 
-Default.config = createConfig();
+export const config = createConfig();

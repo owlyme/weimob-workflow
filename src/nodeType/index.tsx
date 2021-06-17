@@ -1,13 +1,19 @@
 import React from 'react';
 import NodePlaceholder from './nodePlaceholder/Node';
 import NodeTypeUndefined from './nodeTypeUndefined/Node';
-import ListenerNode from './listener/Node';
-import ChoiceNode from './choice/Node';
-import ProcessorNode from './processor/Node';
+import ListenerNode, { ListenerConfig } from './listener';
+import {
+  ChoiceNode,
+  choiceConfig,
+  WhenNode,
+  DefaultNode,
+} from './choice';
+
+import ProcessorNode, { processorconfig } from './processor';
 import ParallelNode from './parallel/Node';
 import TryCatchNode from './tryCatch/Node';
-import ConnectorNode from './connector/Node';
-import Transformer from './transformer/Node';
+import ConnectorNode, { connectorConfig } from './connector';
+import Transformer, {transformerConfig} from './transformer';
 
 import {
   NODE_TYPE_LISTENER,
@@ -31,8 +37,8 @@ export const NodeTypeComponents = {
   [NODE_TYPE_LISTENER]: ListenerNode,
   [NODE_TYPE_PROCESSOR]: ProcessorNode,
   [NODE_TYPE_CHOICE]: ChoiceNode,
-  [NODE_TYPE_CHOICE_WHEN]: ChoiceNode.When,
-  [NODE_TYPE_CHOICE_DEFAULT]: ChoiceNode.Default,
+  [NODE_TYPE_CHOICE_WHEN]: WhenNode,
+  [NODE_TYPE_CHOICE_DEFAULT]: DefaultNode,
   [NODE_TYPE_PARALLEL]: ParallelNode,
   [NODE_TYPE_PARALLEL_CHILD]: ParallelNode.ChildNode,
   [NODE_TYPE_PLACEHOLDER]: NodePlaceholder,
@@ -45,16 +51,16 @@ export const NodeTypeComponents = {
 };
 
 export const NodeTypeConfigs = {
-  [NODE_TYPE_LISTENER]: ListenerNode.config,
-  [NODE_TYPE_PROCESSOR]: ProcessorNode.config,
-  [NODE_TYPE_CHOICE]: ChoiceNode.config,
+  [NODE_TYPE_LISTENER]: ListenerConfig,
+  [NODE_TYPE_PROCESSOR]: processorconfig,
+  [NODE_TYPE_CHOICE]: choiceConfig,
   [NODE_TYPE_PARALLEL]: ParallelNode.config,
   [NODE_TYPE_TRY]: TryCatchNode.config,
-  [NODE_TYPE_CONNECTOR]: ConnectorNode.config,
-  [NODE_TYPE_TRANSFORMER]: Transformer.config,
+  [NODE_TYPE_CONNECTOR]: connectorConfig,
+  [NODE_TYPE_TRANSFORMER]: transformerConfig
 };
 
-function getNodeTypeComp(nodeType:any) {
+function getNodeTypeComp(nodeType: any) {
   return NodeTypeComponents[nodeType]
     ? NodeTypeComponents[nodeType]
     : NodeTypeUndefined;
@@ -67,7 +73,7 @@ interface UseProps {
   config: NodeConfig;
 }
 
-export function registerNode(param: UseProps):void {
+export function registerNode(param: UseProps): void {
   const { nodeType, node, config } = param;
   if (!nodeType) {
     console.error('registerNode param need nodeType');

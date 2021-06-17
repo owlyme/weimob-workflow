@@ -75,6 +75,7 @@ export function parseIndex(index: string | number[]): number[] {
 export function getTargetNode(levelIndexArr: number[], rootNode: any): any {
   let index = 0;
 
+  console.log(rootNode)
   const targetNode = levelIndexArr.reduce(
     (acc, indexValue) => {
       if (index === levelIndexArr.length - 1) {

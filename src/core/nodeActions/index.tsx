@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
-import {  NodeConfig } from '../types';
+import { NodeConfig } from '../types';
 
 export default function NodeActionsColse({
   node,
