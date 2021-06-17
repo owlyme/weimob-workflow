@@ -2,9 +2,9 @@
   "name": "weimob-workflow",
   "version": "1.0.9",
   "description": "工作流",
-  "author": "owlyme",
+  "author": "xuyuan",
   "license": "MIT",
-  "repository": "/weimob-workflow",
+  "repository": "",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
@@ -64,5 +64,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "prome": "^1.0.1-beta.36"
+  }
 }

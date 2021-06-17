@@ -5,7 +5,7 @@ import createDataStore from './storeData';
 export default function () {
   const storeInstance = createDataStore();
 
-  function connect(Comp: React.ElementType) {
+  function connect(Comp: any) {
     return function Conncet(props: any) {
       const [workFlow, setWorkFlow] = useState(storeInstance.getState());
 
@@ -23,5 +23,5 @@ export default function () {
     };
   }
 
-  return [storeInstance, connect]
+  return [storeInstance, connect] as const;
 }

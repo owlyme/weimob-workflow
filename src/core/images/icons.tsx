@@ -13,7 +13,7 @@ const iconMaps = {
 };
 
 export default function IconCom({ type, ...other }: any) {
-  // return <img alt="icon" src={iconMaps[type] || type} {...other} />;
+
   return /(data:image)|(\/\/)/.test(type || '') ? (
     <img
       draggable={false}

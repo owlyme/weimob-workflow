@@ -1,4 +1,4 @@
-import { NodeTypeConfigs, NodeConfig } from 'weimob-workflow';
+import { NodeTypeConfigs } from 'weimob-workflow';
 import {
   NODE_TYPE_LISTENER,
   NODE_TYPE_PROCESSOR,
@@ -9,7 +9,7 @@ import {
   NODE_TYPE_TRANSFORMER,
 } from '../constant';
 
-const List: NodeConfig[] = [
+const List = [
   NodeTypeConfigs[NODE_TYPE_LISTENER],
   NodeTypeConfigs[NODE_TYPE_PROCESSOR],
   NodeTypeConfigs[NODE_TYPE_CHOICE],

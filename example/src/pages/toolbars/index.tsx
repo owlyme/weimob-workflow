@@ -22,7 +22,7 @@ const formatToolList = (toolList, config) =>
     return tool;
   });
 
-const Toolbar = ({ disabled = false, toolList, workFlow, dispatch }) => {
+const Toolbar = ({ disabled = false, toolList, workFlow, dispatch }:any) => {
   const { currentNode } = workFlow;
 
   const [shapeList, setShapeList] = useState(null);

@@ -1,8 +1,6 @@
 import { createWorkflowStore, Node, paletteHOC } from 'weimob-workflow';
 import 'weimob-workflow/dist/index.css';
-
 import Tools from './toolbars';
-
 
 const [storeInstance, workFlowConnect] = createWorkflowStore();
 export const workFlowStore = storeInstance;
