@@ -1,9 +1,11 @@
 import React from 'react';
 import { NodePlaceholder, UndefinedNode } from './baseNode';
 import ListenerNode, { ListenerConfig } from './listener';
+import EndNode, { EndConfig } from './end';
 import { ChoiceNode, choiceConfig, WhenNode, DefaultNode } from './choice';
 import ProcessorNode, { processorconfig } from './processor';
 import { ParallelNode, ParallelChildNode, parallelConfig } from './parallel';
+import { AsyncNode, AsyncChildNode, asyncConfig } from './async';
 import { TryCatchNode, NormalNode, FinallyNode, CatchNode, tryCatchConfig } from './tryCatch';
 import ConnectorNode, { connectorConfig } from './connector';
 import Transformer, { transformerConfig } from './transformer';
@@ -23,9 +25,11 @@ import {
   NODE_TYPE_TRY_FINALLY,
   NODE_TYPE_CONNECTOR,
   NODE_TYPE_TRANSFORMER,
+  NODE_TYPE_ASYNC,
+  NODE_TYPE_ASYNC_CHILD,
+  NODE_TYPE_END
 } from '../constant';
 import { NodeProps, NodeConfig } from '../core/types';
-
 
 export const NodeTypeComponents = {
   [NODE_TYPE_LISTENER]: ListenerNode,
@@ -42,6 +46,9 @@ export const NodeTypeComponents = {
   [NODE_TYPE_TRY_FINALLY]: FinallyNode,
   [NODE_TYPE_TRANSFORMER]: Transformer,
   [NODE_TYPE_CONNECTOR]: ConnectorNode,
+  [NODE_TYPE_ASYNC]: AsyncNode,
+  [NODE_TYPE_ASYNC_CHILD]: AsyncChildNode,
+  [NODE_TYPE_END]: EndNode
 };
 
 export const NodeTypeConfigs = {
@@ -51,7 +58,9 @@ export const NodeTypeConfigs = {
   [NODE_TYPE_PARALLEL]: parallelConfig,
   [NODE_TYPE_TRY]: tryCatchConfig,
   [NODE_TYPE_CONNECTOR]: connectorConfig,
-  [NODE_TYPE_TRANSFORMER]: transformerConfig
+  [NODE_TYPE_TRANSFORMER]: transformerConfig,
+  [NODE_TYPE_ASYNC]: asyncConfig,
+  [NODE_TYPE_END]: EndConfig
 };
 
 function getNodeTypeComp(nodeType: any) {
@@ -67,14 +76,15 @@ interface UseProps {
   config: NodeConfig;
 }
 
-export function registerNode(param: UseProps): void {
-  const { nodeType, node, config } = param;
-  if (!nodeType) {
-    console.error('registerNode param need nodeType');
-  } else {
-    node && (NodeTypeComponents[nodeType] = node);
-    config && (NodeTypeConfigs[nodeType] = config);
-  }
+export function registerNode(params: UseProps[]): void {
+  (params || []).forEach(({ nodeType, node, config }) => {
+    if (!nodeType) {
+      console.error('registerNode param need nodeType');
+    } else {
+      node && (NodeTypeComponents[nodeType] = node);
+      config && (NodeTypeConfigs[nodeType] = config);
+    }
+  })
 }
 
 export default function Node(props: NodeProps) {

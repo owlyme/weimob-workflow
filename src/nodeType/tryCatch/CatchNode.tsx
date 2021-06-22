@@ -31,7 +31,7 @@ export default function Catch(props: NodeProps) {
         status: node.weimobConfigSaved && node.children && node.children.length,
       },
     });
-  }, [node, nodeLevelIndex, dispatch]);
+  }, [node?.weimobConfigSaved, node?.children?.length, nodeLevelIndex, dispatch]);
 
   const deleteForbidden = parentNode?.children && parentNode?.children.length <= 3;
   useEffect(() => {
@@ -43,7 +43,7 @@ export default function Catch(props: NodeProps) {
         deleteForbidden
       },
     });
-  }, [node, nodeLevelIndex, parentNode, dispatch]);
+  }, [node?.children?.length, nodeLevelIndex, deleteForbidden, dispatch]);
 
 
 

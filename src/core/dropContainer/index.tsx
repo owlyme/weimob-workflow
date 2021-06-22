@@ -46,7 +46,7 @@ export default function DropContainer({
         });
       } else {
         // 当移动节点为当前节点的父级时不操作
-        console.log(workFlow.dragNodeData, nodeLevelIndex)
+        // console.log(workFlow.dragNodeData, nodeLevelIndex)
         if (nodeLevelIndex.indexOf(workFlow.dragNodeData.nodeLevelIndex) === 0) return;
 
         dispatch({

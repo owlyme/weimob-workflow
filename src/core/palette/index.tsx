@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import NodeContainer from '../nodeContainer';
 import DragContainer from '../dragContainer';
 import Edge from '../edge';
@@ -7,20 +7,40 @@ import DropContainer from '../dropContainer';
 import DeleteContainer from '../deleteContainer';
 import { NodeConfig } from '../types';
 import { debounce } from '../utils';
+import Polyline, { getPosition } from './../arrow/Polyline';
+import mutationObserver from "../utils/mutationObserver"
 import './style.less';
 
-export default function paletteHOC (Node:any) {
-  const Palette = ({ disabled = false, workFlow, dispatch }: any) => {
+
+export default function paletteHOC(Node: any) {
+  const Palette = ({ disabled = false, workFlow, dispatch, subscribe }: any) => {
     if (!Node) {
       console.error('Palette必须要有Node参数 Node是ReactElement');
       return null;
     }
+
+    const elements = useRef<any>({})
+
+    const getLayoutRef = (ref: HTMLElement) => {
+      elements.current.layout = ref;
+    }
+
+    useEffect(() => {
+      subscribe((_: any, type: any) => {
+        if (type === "onDragSortEnd" || type === 'onMoveNode') {
+          mutationObserver(
+            () => setRectStyle(getPosition(elements.current.layout))
+          )
+        }
+      })
+    }, [subscribe]);
+
     function toggoleClassName(nodeId: string) {
       return nodeId === workFlow.currentNode.nodeId
         ? 'node-container selected'
         : 'node-container';
     }
-  
+
     function onLayoutClick() {
       dispatch({
         type: 'workFlow/setCurrentNode',
@@ -29,14 +49,22 @@ export default function paletteHOC (Node:any) {
         },
       });
     }
-  
-    function contianerScrollTo(targetEle: HTMLElement) {
-      targetEle.scrollIntoView();
-    }
-  
-    const debounceContianerScrollTo = debounce(contianerScrollTo);
-  
-    const renderNodeList = (parentNode: NodeConfig, levelIndex = '0') => {
+
+    const [rectStyle, setRectStyle] = useState<any>({})
+
+    const debounceContianerScrollTo = useCallback(debounce((targetEle?: HTMLElement) => {
+      if (targetEle) targetEle.scrollIntoView();
+      setRectStyle(getPosition(elements.current.layout))
+    }, 60), []);
+
+    const onCollapseAction = useCallback(() => {
+      mutationObserver(
+        () => setRectStyle(getPosition(elements.current.layout))
+      )
+    }, [])
+
+
+    const renderNodeList = (parentNode: NodeConfig, disabled: boolean, levelIndex = '0') => {
       const list = (parentNode.children || []).map(
         (node: NodeConfig, index: number) => (
           <div
@@ -47,7 +75,7 @@ export default function paletteHOC (Node:any) {
               node={node}
               className={toggoleClassName(node.nodeId)}
               nodeLevelIndex={`${levelIndex}-${index}`}
-              onAfterNodesChange={debounceContianerScrollTo}
+              onAfterNodeMounted={debounceContianerScrollTo}
               disabled={disabled}
               dispatch={dispatch}
               workFlow={workFlow}
@@ -59,7 +87,8 @@ export default function paletteHOC (Node:any) {
                 dispatch={dispatch}
                 workFlow={workFlow}
               >
-                <Node 
+                <Node
+                  node-type="node"
                   node={node}
                   nodeLevelIndex={`${levelIndex}-${index}`}
                   dispatch={dispatch}
@@ -67,13 +96,14 @@ export default function paletteHOC (Node:any) {
                   parentNode={parentNode}
                   disabled={disabled}
                   IconCom={IconCom}
+                  onCollapseAction={onCollapseAction}
                 >
                   {node.children && (
                     <div
                       className={`node-children ${node.nodeType}-children`}
                       style={{ display: node.childrenFlex ? 'flex' : 'block' }}
                     >
-                      {renderNodeList(node, `${levelIndex}-${index}`)}
+                      {renderNodeList(node, disabled, `${levelIndex}-${index}`)}
                     </div>
                   )}
                 </Node>
@@ -92,12 +122,13 @@ export default function paletteHOC (Node:any) {
           </div>
         ),
       );
-  
+
       return list;
     };
-  
+
     return (
       <DeleteContainer
+        onAfterNodeMounted={getLayoutRef}
         className="node-layout-box"
         dispatch={dispatch}
         workFlow={workFlow}
@@ -111,8 +142,21 @@ export default function paletteHOC (Node:any) {
           node={workFlow.workFlowNodes}
           nodeLevelIndex="0"
         >
-          {renderNodeList(workFlow.workFlowNodes || {})}
+          {renderNodeList(workFlow.workFlowNodes || {}, disabled)}
         </DropContainer>
+
+        {
+          workFlow.endNode && <div className="node-layout" id="end">
+            {renderNodeList({
+              children: [
+                workFlow.endNode
+              ]
+            } as NodeConfig, true)}
+          </div>
+        }
+
+        <Polyline style={rectStyle} />
+
       </DeleteContainer>
     );
   }

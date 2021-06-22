@@ -322,6 +322,14 @@ function createDataStore() {
       setWorkFlowSaved(state: any) {
         state.workFlowNodes.unSaved = false;
       },
+
+      setEndNodeConfig(state: any, { payload: {
+        config,
+        configCompleteStatus
+      } }: any) {
+        state.endNode[CONFIG_KEY] = config
+        state.endNode.configCompleteStatus = configCompleteStatus
+      },
     },
   };
 
@@ -357,7 +365,7 @@ function createDataStore() {
       }
 
       debounceSubscribe.forEach(sub => {
-        sub(store.state);
+        sub(store.state, action);
       });
     },
     getState() {

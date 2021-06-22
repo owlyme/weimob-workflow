@@ -10,6 +10,8 @@ const iconMaps = {
   tryIcon: 'iconCatch',
   connectorIcon: 'iconconnection',
   transformerIcon: 'icontransfer1',
+  endIcon: 'iconend',
+  asyncIcon: "iconasync"
 };
 
 export default function IconCom({ type, ...other }: any) {

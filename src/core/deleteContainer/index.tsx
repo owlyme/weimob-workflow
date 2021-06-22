@@ -5,14 +5,18 @@ export default function DeleteContainer({
   dispatch,
   workFlow,
   children,
+  onAfterNodeMounted = (f:any) => f,
   ...props
 }: any) {
   const box = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const { current } = box;
-    function remove(event: any): any {
+    const current:HTMLDivElement | null = box.current;
+    if (!current) return
+    onAfterNodeMounted(current)
+    const remove:any = (event: any) => {
       const k = event.keyCode;
-      if ((k == 8 || k == 46) && !(remove as any).open) {
+      if ((k == 8 || k == 46) && !remove.open) {
         //backspace 或 delete键
         (remove as any).open = true;
         if (workFlow.currentNode.deleteForbidden) {
@@ -36,25 +40,27 @@ export default function DeleteContainer({
           });
         }
       }
-    }
+    };
+
     // workFlowStatus
-    (current as any).onmouseover = () => {
-      (current as any).focus({
+    current.onmouseover = () => {
+      current.focus({
         preventScroll: true,
       });
     };
-    (current as any).onmouseout = () => {
-      (current as any).blur();
+    current.onmouseout = () => {
+      current.blur();
     };
     if (workFlow.currentNode?.nodeLevelIndex) {
-      (current as any).addEventListener('keydown', remove);
+      current.addEventListener('keydown', remove);
     }
 
     return () => {
       (remove as any).open = false;
-      (current as any).removeEventListener('keydown', remove);
+      current.removeEventListener('keydown', remove);
     };
   }, [dispatch, workFlow, box]);
+
   return (
     <div ref={box} {...props} tabIndex="-1">
       {children}

@@ -1,3 +1,7 @@
+import { EndConfig } from '../../nodeType/end';
+import { ListenerConfig } from '../../nodeType/listener';
+import {CONFIG_KEY, NODE_TYPE_LISTENER} from "../../constant"
+
 export const initState = () => ({
   workFlowNodes: {
     nodeLevelIndex: '0',
@@ -8,6 +12,9 @@ export const initState = () => ({
     hasListenerNode: false,
     children: [],
     unSaved: false,
+  },
+  endNode: {
+    ...EndConfig
   },
   currentNode: {},
   dragNodeData: {},
@@ -103,4 +110,40 @@ export function isSameAncestorsLevel(
 
 export function addNodeChoice(choiceNode: any, nodeId: string): void {
   choiceNode?.children?.forEach((node: any) => (node.nodeId = nodeId));
+}
+
+export function addListenerNode(graph:any, data:any) {
+  const { cfg, description, protocol, remark } = data;
+  const config = JSON.parse(cfg || '{}');
+  const node = {
+    ...ListenerConfig,
+    weimobConfigDisable: true,
+    weimobConfigSaved: true,
+    configCompleteStatus: true, // 是否显示左上角红点提示
+    [CONFIG_KEY]: {
+      desc: description,
+      remark,
+      cfg: {
+        protocol,
+        cfg: {
+          ...config,
+        },
+      },
+    },
+  };
+  const [newNode, maxNodeId] = createNodesNodeId(node, graph.maxNodeId);
+
+  if (!graph.children) {
+    graph.children = [];
+  }
+  if (graph.children[0]?.nodeType === NODE_TYPE_LISTENER) {
+    graph.children[0] = newNode;
+  } else {
+    graph.children.unshift(newNode);
+  }
+
+  graph.maxNodeId = maxNodeId;
+  graph.hasListenerNode = true;
+
+  return graph;
 }

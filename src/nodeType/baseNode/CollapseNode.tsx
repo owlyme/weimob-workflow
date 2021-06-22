@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Collapse } from 'antd';
 import { NodeProps } from '../../core/types';
 import {
@@ -8,21 +8,24 @@ import { NodeActions } from '../../core';
 
 const { Panel } = Collapse;
 
-export default function CollapseNode({
+export default  function CollapseNode({
   node,
   nodeLevelIndex,
   children,
   disabled,
   IconCom,
   dispatch,
+  onCollapseAction= (f:any) => f
 }: NodeProps) {
   const initData: any = node[CONFIG_KEY];
+  const ele = useRef<HTMLDivElement>(null)
   return (
-    <Collapse defaultActiveKey={['1']} ghost>
+    <div ref={ele} className="collapse-node">
+    <Collapse defaultActiveKey={['1']}  ghost onChange={() => onCollapseAction(ele.current)}>
       <Panel
         key="1"
         header={
-          <div className="node-container-header">
+          <div className="node-container-header" style={{display: "inline-flex"}}>
             <IconCom type={node.icon} />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <span className="node-name">{node.label}</span>
@@ -40,5 +43,9 @@ export default function CollapseNode({
         <div>{children}</div>
       </Panel>
     </Collapse>
+    </div>
   );
 }
+
+
+

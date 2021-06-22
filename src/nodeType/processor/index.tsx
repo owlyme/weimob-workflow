@@ -4,9 +4,7 @@ import { NODE_TYPE_PROCESSOR } from '../../constant';
 import { CommonNode } from "../baseNode"
 
 export default function ProcessorNode(porps: NodeProps) {
-  return <CommonNode {...porps} >
-   
-  </CommonNode>
+  return <CommonNode {...porps} ></CommonNode>
 }
 
 export const processorconfig:NodeConfig = {

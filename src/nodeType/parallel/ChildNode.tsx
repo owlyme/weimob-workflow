@@ -23,6 +23,7 @@ export default function ChildNode(props: NodeProps) {
     disabled,
   } = props
   const deleteForbidden = parentNode?.children && parentNode?.children.length <= 1;
+
   useEffect(() => {
     dispatch({
       type: 'workFlow/setNodePorpertiesAndValues',
@@ -32,7 +33,7 @@ export default function ChildNode(props: NodeProps) {
         deleteForbidden
       },
     });
-  }, [node, nodeLevelIndex, parentNode, dispatch]);
+  }, [node?.children?.length, nodeLevelIndex, deleteForbidden, dispatch]);
 
   const addChildren = (evt: MouseEvent) => {
     evt.stopPropagation();

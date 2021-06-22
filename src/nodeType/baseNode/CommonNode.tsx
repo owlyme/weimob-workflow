@@ -17,10 +17,9 @@ export default function CommonNode({
   disabled,
   IconCom,
   children,
-  dispatch
+  dispatch,
 }: NodeProps) {
   const initData: any = node[CONFIG_KEY]
-
   return (
     <div>
       <div className="node-container-header">
@@ -30,13 +29,12 @@ export default function CommonNode({
           <span className="node-desc">{initData?.desc}</span>
         </div>
 
-        {!disabled && (
+        {!disabled && !node.deleteForbidden && (
           <NodeActions
             node={node}
             dispatch={dispatch}
             nodeLevelIndex={nodeLevelIndex} />
         )}
-
       </div>
 
       <div>

@@ -1,8 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Collapse, message, Input } from 'antd';
 import commonList, { processorNodeConfig } from './toolList';
-import { setDragImage, childDisable, IconCom } from "weimob-workflow"
-import { CONFIG_KEY } from '../constant';
+import { setDragImage, childDisable, IconCom, CONFIG_KEY } from "weimob-workflow"
 import './style.less';
 
 const { Panel } = Collapse;
@@ -110,7 +109,7 @@ const Toolbar = ({ disabled = false, toolList, workFlow, dispatch }:any) => {
     evt.stopPropagation();
   };
 
-  const draggable = false
+  const draggable = true
 
   const toolGroup = tool => {
     return (

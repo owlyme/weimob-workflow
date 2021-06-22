@@ -32,7 +32,7 @@ export default function When(props: NodeProps) {
         deleteForbidden
       },
     });
-  }, [node, nodeLevelIndex, parentNode, dispatch]);
+  }, [node?.children?.length, nodeLevelIndex, deleteForbidden, dispatch]);
 
   const addChildren = (evt: MouseEvent) => {
     evt.stopPropagation();

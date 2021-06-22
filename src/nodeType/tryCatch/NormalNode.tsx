@@ -30,7 +30,7 @@ export default function Normal(props: NodeProps) {
         status: !!(node.children && node.children.length),
       },
     });
-  }, [node, nodeLevelIndex, dispatch]);
+  }, [node?.children?.length, nodeLevelIndex, dispatch]);
 
   return <DropNode {...props}></DropNode>
 }

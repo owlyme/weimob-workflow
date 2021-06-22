@@ -1,5 +1,5 @@
 :global {
-  * {
+  .node-layout-box * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -12,6 +12,8 @@
     display: flex;
     align-items: stretch;
     flex: none;
+    flex-wrap: wrap;
+    position: relative;
   }
   .node-layout {
     display: flex;
@@ -19,6 +21,8 @@
     flex: none;
     width: 100%;
     min-height: 100%;
+    position: relative;
+    z-index: 1;
   }
   .node-edge-conatiner {
     display: flex;
@@ -52,7 +56,7 @@
     background: #fff;
     margin: 8px 0;
     flex-shrink: 0;
-    padding: 5px;
+    padding: 5px !important;
     cursor: pointer;
     min-width: 120px;
     min-height: 50px;
@@ -60,11 +64,11 @@
     &-header {
       display: flex;
       align-items: center;
-      padding-right: 20px;
+      padding-right: 20px !important;
       font-size: 12px;
       .icon-svg {
         color: #1890ff;
-        margin-right: 5px;
+        margin-right: 5px !important;
         width: 30px;
         height: 30px;
       }
@@ -74,31 +78,6 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-      }
-    }
-
-    &-extension {
-      border-top: 1px solid #999;
-      padding-top: 5px;
-      font-size: 12px;
-      .node-name {
-        margin-right: 22px;
-      }
-      .node-desc {
-        display: block;
-        max-width: 120px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
-      .xy {
-        display: none;
-        height: 18px;
-      }
-      &:hover {
-        .xy {
-          display: block;
-        }
       }
     }
 
@@ -198,5 +177,27 @@
 
   .choiceDefault-parent {
     width: 100%;
+  }
+
+  .collapse-node .ant-collapse-header {
+    .ant-collapse-arrow {
+      margin-top: 1px;
+    }
+  }
+}
+
+:global {
+  .collapse-node {
+    .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+      padding: 0;
+      .ant-collapse-arrow {
+        position: relative;
+        top: -11px;
+        // margin-left: -30px;
+      }
+    }
+    .ant-collapse-content-box {
+      padding: 0 !important;
+    }
   }
 }

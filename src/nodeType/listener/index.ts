@@ -9,6 +9,7 @@ export const ListenerConfig:NodeConfig = {
   label: 'Listener',
   nodeType: NODE_TYPE_LISTENER,
   draggable: false,
+  deleteForbidden: true,
   childrenAbleTypes: [],
 }
 

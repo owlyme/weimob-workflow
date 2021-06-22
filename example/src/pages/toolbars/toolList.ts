@@ -1,5 +1,5 @@
-import { NodeTypeConfigs } from 'weimob-workflow';
-import {
+import { 
+  NodeTypeConfigs,
   NODE_TYPE_LISTENER,
   NODE_TYPE_PROCESSOR,
   NODE_TYPE_CHOICE,
@@ -7,7 +7,9 @@ import {
   NODE_TYPE_TRY,
   NODE_TYPE_CONNECTOR,
   NODE_TYPE_TRANSFORMER,
-} from '../constant';
+  NODE_TYPE_ASYNC,
+} from 'weimob-workflow';
+
 
 const List = [
   NodeTypeConfigs[NODE_TYPE_LISTENER],
@@ -17,6 +19,8 @@ const List = [
   NodeTypeConfigs[NODE_TYPE_TRY],
   NodeTypeConfigs[NODE_TYPE_CONNECTOR],
   NodeTypeConfigs[NODE_TYPE_TRANSFORMER],
+  NodeTypeConfigs[NODE_TYPE_ASYNC],
+  
 ];
 
 export const processorNodeConfig = NodeTypeConfigs[NODE_TYPE_PROCESSOR];

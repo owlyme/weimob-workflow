@@ -13,12 +13,13 @@ export default function () {
         storeInstance.subscribe(() => {
           setWorkFlow(storeInstance.getState());
         });
-      }, [setWorkFlow]);
+      }, []);
 
       return <Comp
           {...props}
           workFlow={workFlow}
           dispatch={storeInstance.dispatch}
+          subscribe={storeInstance.subscribe}
         />
     };
   }

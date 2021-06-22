@@ -22,7 +22,7 @@ export function NodeContainer({
   nodeLevelIndex,
   className,
   children,
-  onAfterNodesChange,
+  onAfterNodeMounted,
   dispatch,
   workFlow,
 }: NodeProps) {
@@ -44,9 +44,12 @@ export function NodeContainer({
 
   useEffect(() => {
     if (contianerRef.current) {
-      onAfterNodesChange && onAfterNodesChange(contianerRef?.current);
+      onAfterNodeMounted && onAfterNodeMounted(contianerRef?.current);
     }
-  }, [contianerRef, onAfterNodesChange]);
+    return () => {
+      onAfterNodeMounted && onAfterNodeMounted();
+    }
+  }, [contianerRef]);
 
   function onMouseOver(evt: any) {
     evt.stopPropagation();

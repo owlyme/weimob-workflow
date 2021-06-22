@@ -1,10 +1,10 @@
 {
   "name": "weimob-workflow",
-  "version": "1.0.9",
+  "version": "1.1.13",
   "description": "工作流",
   "author": "xuyuan",
   "license": "MIT",
-  "repository": "",
+  "repository": "https://github.com/owlyme/weimob-workflow",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
@@ -66,6 +66,7 @@
     "dist"
   ],
   "dependencies": {
-    "prome": "^1.0.1-beta.36"
+    "@types/react-collapse": "^5.0.0",
+    "react-collapse": "^5.1.0"
   }
 }
