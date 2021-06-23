@@ -1,4 +1,4 @@
-import { NODE_TYPE_TRY_FINALLY, CONFIG_KEY } from '../../constant';
+import { NODE_TYPE_TRY_FINALLY } from '../../constant';
 import { NodeConfig } from '../../core/types';
 import { DropNode } from "../baseNode"
 
@@ -11,7 +11,7 @@ const createConfig = (): NodeConfig => ({
   childrenFlex: true,
   showChildAtions: 'always',
   deleteForbidden: true,
-  [CONFIG_KEY]: { conditionType: 'finally' },
+  
   children: [
     // {
     //   ...NodePlaceholderConfig,

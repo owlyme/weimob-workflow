@@ -1,4 +1,4 @@
-import { NODE_TYPE_CHOICE_DEFAULT, CONFIG_KEY } from '../../constant';
+import { NODE_TYPE_CHOICE_DEFAULT } from '../../constant';
 import { NodeConfig } from '../../core/types';
 import { DropNode } from "../baseNode"
 
@@ -9,7 +9,7 @@ const createConfig = (): NodeConfig => ({
   configCompleteStatus: true,
   noEdge: true,
   childrenFlex: true,
-  [CONFIG_KEY]: { conditionType: 'default' },
+  
   showChildAtions: 'always',
   deleteForbidden: true,
   children: [],

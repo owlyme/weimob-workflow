@@ -11,9 +11,8 @@ import Polyline, { getPosition } from './../arrow/Polyline';
 import mutationObserver from "../utils/mutationObserver"
 import './style.less';
 
-
 export default function paletteHOC(Node: any) {
-  const Palette = ({ disabled = false, workFlow, dispatch, subscribe }: any) => {
+  const Palette = ({ disabled = false, workFlow, dispatch, subscribe, changsize }: any) => {
     if (!Node) {
       console.error('Palette必须要有Node参数 Node是ReactElement');
       return null;
@@ -26,14 +25,22 @@ export default function paletteHOC(Node: any) {
     }
 
     useEffect(() => {
+      function fn () { setRectStyle(getPosition(elements.current.layout)) }
       subscribe((_: any, type: any) => {
         if (type === "onDragSortEnd" || type === 'onMoveNode') {
-          mutationObserver(
-            () => setRectStyle(getPosition(elements.current.layout))
-          )
+          mutationObserver(fn)
         }
       })
+
+      window.addEventListener('resize', fn);
+      return () => {
+        window.removeEventListener("resize", fn);
+      }
     }, [subscribe]);
+
+    useEffect(() => {
+      setRectStyle(getPosition(elements.current.layout))
+    }, [changsize])
 
     function toggoleClassName(nodeId: string) {
       return nodeId === workFlow.currentNode.nodeId

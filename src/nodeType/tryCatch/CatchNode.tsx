@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NODE_TYPE_TRY_CATCH, CONFIG_KEY } from '../../constant';
+import { NODE_TYPE_TRY_CATCH } from '../../constant';
 import { NodeProps, NodeConfig } from '../../core/types';
 import { DropNode } from "../baseNode"
 
@@ -10,8 +10,8 @@ const createConfig = (): NodeConfig => ({
   noEdge: true,
   childrenFlex: true,
   deleteForbidden: false,
-  [CONFIG_KEY]: { conditionType: 'catch', catchClassNames: [] },
   children: [],
+  configCompleteStatus: true
 });
 
 export default function Catch(props: NodeProps) {
@@ -45,8 +45,6 @@ export default function Catch(props: NodeProps) {
     });
   }, [node?.children?.length, nodeLevelIndex, deleteForbidden, dispatch]);
 
-
-
   const addChildren = (evt: MouseEvent) => {
     evt.stopPropagation();
     const node = {
@@ -66,6 +64,7 @@ export default function Catch(props: NodeProps) {
     {...props}
     disabled={deleteForbidden && !disabled}
     showIndex
+    startIndex={0}
     onAddChildren={addChildren}>
   </DropNode>
 }

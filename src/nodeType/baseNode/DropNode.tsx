@@ -18,7 +18,8 @@ export default function DropNode({
   children,
   disabled,
   onAddChildren,
-  showIndex
+  showIndex,
+  startIndex = 1
 }: NodeProps) {
   const index = parseIndex(nodeLevelIndex).pop();
   const [isDragEnter, setIsDragEnter] = useState(false);
@@ -33,7 +34,7 @@ export default function DropNode({
       onContainerDragLeave={setIsDragEnter}
     >
       <div className="node-container-header">
-        <div>{ node.label + `${showIndex ? ("-" + index) : ''}`}</div>
+        <div>{ node.label + `${showIndex ? ("-" + (index + startIndex)) : ''}`}</div>
         {showIndex && !disabled && (
           <NodeActions node={node} dispatch={dispatch} nodeLevelIndex={nodeLevelIndex} />
         )}
@@ -49,7 +50,6 @@ export default function DropNode({
       {
         showIndex  && <AddBtnOnline onAddNode={onAddChildren} />
       }
-      
     </DropContainer>
   );
 }

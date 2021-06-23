@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import { NodeProps, NodeConfig } from '../../core/types';
 import {
   NODE_TYPE_ASYNC_CHILD,
-  CONFIG_KEY,
 } from '../../constant';
 import { DropNode } from "../baseNode"
 
@@ -14,11 +13,27 @@ export const config: NodeConfig = {
   noEdge: true,
   childrenFlex: true,
   deleteForbidden: true,
-  children: [],
-  [CONFIG_KEY] : {}
+  children: []
 };
 
 export default function ChildNode(props: NodeProps) {
+  const {
+    node,
+    nodeLevelIndex,
+    dispatch
+  } = props;
+
+
+  useEffect(() => {
+    dispatch({
+      type: 'workFlow/setNodePorpertiesAndValues',
+      payload: {
+        nodeLevelIndex,
+        configCompleteStatus: node.children && node.children.length,
+      },
+    });
+  }, [node?.children?.length, nodeLevelIndex, dispatch]);
+
   return (
     <DropNode 
     {...props}

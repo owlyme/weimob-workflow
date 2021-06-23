@@ -12,8 +12,8 @@ export const EndConfig:NodeConfig = {
   draggable: false,
   showActions: false,
   childrenAbleTypes: [],
-  nodeId: "-1",
-  configCompleteStatus: false
+  nodeId: "n-000",
+  configCompleteStatus: true
 }
 
 const ListenerNode = CommonNode;

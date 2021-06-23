@@ -8,6 +8,7 @@ export const transformerConfig:NodeConfig = {
   nodeType: NODE_TYPE_TRANSFORMER,
   draggable: true,
   childrenAbleTypes: [],
+  configCompleteStatus: true
 }
 
 const TransformerNode = CommonNode;

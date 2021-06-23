@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NODE_TYPE_TRY_NORMAL, CONFIG_KEY } from '../../constant';
+import { NODE_TYPE_TRY_NORMAL } from '../../constant';
 import { NodeProps, NodeConfig } from '../../core/types';
 import { DropNode } from "../baseNode"
 
@@ -10,7 +10,7 @@ const createConfig = (): NodeConfig => ({
   configCompleteStatus: true,
   noEdge: true,
   childrenFlex: true,
-  [CONFIG_KEY]: { conditionType: 'normal' },
+ 
   deleteForbidden: true,
   children: [],
 });

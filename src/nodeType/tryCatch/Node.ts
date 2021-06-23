@@ -6,7 +6,6 @@ import {
   NODE_TYPE_TRY_NORMAL,
   NODE_TYPE_TRY_CATCH,
   NODE_TYPE_TRY_FINALLY,
-  CONFIG_KEY,
 } from '../../constant';
 
 import { CollapseNode } from "../baseNode"
@@ -25,13 +24,7 @@ export const config = {
     NODE_TYPE_TRY_CATCH,
     NODE_TYPE_TRY_FINALLY,
   ],
-  [CONFIG_KEY]: {
-    desc: '',
-    remark: '',
-    cfg: {
-      conditions: [],
-    },
-  },
+
   children: [
     {
       ...normalConfig,

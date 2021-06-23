@@ -5,7 +5,6 @@ import {
   NODE_TYPE_CHOICE,
   NODE_TYPE_CHOICE_WHEN,
   NODE_TYPE_CHOICE_DEFAULT,
-  CONFIG_KEY,
 } from '../../constant';
 import { CollapseNode } from "../baseNode"
 
@@ -20,11 +19,6 @@ export const config: NodeConfig = {
   draggable: true,
   configCompleteStatus: true,
   childrenAbleTypes: [NODE_TYPE_CHOICE_WHEN, NODE_TYPE_CHOICE_DEFAULT],
-  [CONFIG_KEY]: {
-    cfg: {
-      conditions: [],
-    },
-  },
   children: [
     {
       ...whenConfig,
