@@ -28,7 +28,6 @@ export interface NodeProps {
   disabled?: boolean;
   dispatch: (arg: object) => void;
   workFlow?: any;
- 
   className?: string;
   [propName: string]: any;
 }

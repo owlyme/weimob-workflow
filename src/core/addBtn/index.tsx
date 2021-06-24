@@ -16,7 +16,7 @@ export default function AddBtn({ onAddNode }: any) {
   };
 
   return (
-    <div className="add-node-btn" style={style} onClick={addChildren}>
+    <div className="weimobworkflow-add-node-btn" style={style} onClick={addChildren}>
       <PlusCircleOutlined style={{ background: '#fff' }} />
     </div>
   );
@@ -24,7 +24,7 @@ export default function AddBtn({ onAddNode }: any) {
 
 export function AddBtnOnline(props: any) {
   return (
-    <div className="add-node-btn-container">
+    <div className="weimobworkflow-add-node-btn-container">
       <AddBtn {...props} />
     </div>
   );

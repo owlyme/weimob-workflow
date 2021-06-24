@@ -25,7 +25,7 @@ export default function IconCom({ type, ...other }: any) {
       {...other}
     />
   ) : (
-    <svg className="icon-svg" aria-hidden="true">
+    <svg className="weimobworkflow-icon-svg" aria-hidden="true">
       <use xlinkHref={`#${iconMaps[type]}`}></use>
     </svg>
   );

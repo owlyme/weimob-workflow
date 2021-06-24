@@ -33,7 +33,7 @@ export default function DropNode({
       onContainerDragEnter={setIsDragEnter}
       onContainerDragLeave={setIsDragEnter}
     >
-      <div className="node-container-header">
+      <div className="weimobworkflow-node-container-header">
         <div>{ node.label + `${showIndex ? ("-" + (index + startIndex)) : ''}`}</div>
         {showIndex && !disabled && (
           <NodeActions node={node} dispatch={dispatch} nodeLevelIndex={nodeLevelIndex} />

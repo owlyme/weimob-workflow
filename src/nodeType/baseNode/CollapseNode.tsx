@@ -20,16 +20,16 @@ export default  function CollapseNode({
   const initData: any = node[CONFIG_KEY];
   const ele = useRef<HTMLDivElement>(null)
   return (
-    <div ref={ele} className="collapse-node">
+    <div ref={ele} className="weimobworkflow-collapse-node">
     <Collapse defaultActiveKey={['1']}  ghost onChange={() => onCollapseAction(ele.current)}>
       <Panel
         key="1"
         header={
-          <div className="node-container-header" style={{display: "inline-flex"}}>
+          <div className="weimobworkflow-node-container-header" style={{display: "inline-flex"}}>
             <IconCom type={node.icon} />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span className="node-name">{node.label}</span>
-              <span className="node-desc">{initData?.desc}</span>
+              <span className="weimobworkflow-node-name">{node.label}</span>
+              <span className="weimobworkflow-node-desc">{initData?.desc}</span>
             </div>
             {!disabled && (
               <NodeActions 

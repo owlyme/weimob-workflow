@@ -18,8 +18,6 @@ export default function displayHOC(Node:any) {
     }
 
     const elements = useRef<any>({})
-
-
     const [rectStyle, setRectStyle] = useState<any>({})
 
     const debounceContianerScrollTo = useCallback(() => {

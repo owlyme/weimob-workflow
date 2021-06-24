@@ -9,7 +9,7 @@ export default function NodePlaceholder({
   parentNode,
 }: NodeProps) {
   return (
-      <div className="node-container-header">
+      <div className="weimobworkflow-node-container-header">
         <div>请选择流程节点：</div>
         {(parentNode?.showChildAtions ||
           parentNode?.root ||
@@ -29,5 +29,5 @@ export const NodePlaceholderConfig: NodeConfig = {
 NodePlaceholder.config = NodePlaceholderConfig;
 
 export const PurePlaceholder = ({ children }:any) => (
-  <div className="node-container-header">{children || '请选择流程节点'}</div>
+  <div className="weimobworkflow-node-container-header">{children || '请选择流程节点'}</div>
 );

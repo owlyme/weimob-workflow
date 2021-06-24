@@ -22,11 +22,11 @@ export default function CommonNode({
   const initData: any = node[CONFIG_KEY]
   return (
     <div>
-      <div className="node-container-header">
+      <div className="weimobworkflow-node-container-header">
         <IconCom type={node.icon} />
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <span className="node-name">{node.label}</span>
-          <span className="node-desc">{initData?.desc}</span>
+          <span className="weimobworkflow-node-name">{node.label}</span>
+          <span className="weimobworkflow-node-desc">{initData?.desc}</span>
         </div>
 
         {!disabled && !node.deleteForbidden && (

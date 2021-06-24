@@ -2,7 +2,6 @@ import { config as defaultConfig } from './ChildNode';
 import {
   NODE_TYPE_ASYNC,
   NODE_TYPE_ASYNC_CHILD,
-  CONFIG_KEY,
 } from '../../constant';
 import { CollapseNode } from "../baseNode"
 
@@ -13,11 +12,6 @@ export const config = {
   childrenAbleTypes: [NODE_TYPE_ASYNC_CHILD],
   draggable: true,
   configCompleteStatus: true,
-  [CONFIG_KEY]: {
-    cfg: {
-      subWorkflow: []
-    },
-  },
   children: [
     {
       ...defaultConfig
