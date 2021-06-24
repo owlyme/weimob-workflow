@@ -44,8 +44,8 @@ export default function paletteHOC(Node: any) {
 
     function toggoleClassName(nodeId: string) {
       return nodeId === workFlow.currentNode.nodeId
-        ? 'weimobworkflow-node-container weimobworkflow-selected'
-        : 'weimobworkflow-node-container';
+        ? 'node-container selected'
+        : 'node-container';
     }
 
     function onLayoutClick() {
@@ -75,7 +75,7 @@ export default function paletteHOC(Node: any) {
       const list = (parentNode.children || []).map(
         (node: NodeConfig, index: number) => (
           <div
-            className={`weimobworkflow-node-edge-conatiner weimobworkflow-${node.nodeType}-parent`}
+            className={`node-edge-conatiner ${node.nodeType}-parent`}
             key={node.nodeId}
           >
             <NodeContainer
@@ -136,13 +136,13 @@ export default function paletteHOC(Node: any) {
     return (
       <DeleteContainer
         onAfterNodeMounted={getLayoutRef}
-        className="weimobworkflow-node-layout-box"
+        className="node-layout-box"
         dispatch={dispatch}
         workFlow={workFlow}
         onClick={onLayoutClick}
       >
         <DropContainer
-          className="weimobworkflow-node-layout"
+          className="node-layout"
           id="workflow-nodes-layout"
           dispatch={dispatch}
           workFlow={workFlow}
@@ -153,7 +153,7 @@ export default function paletteHOC(Node: any) {
         </DropContainer>
 
         {
-          workFlow.endNode && <div className="weimobworkflow-node-layout" id="end">
+          workFlow.endNode && <div className="node-layout" id="end">
             {renderNodeList({
               children: [
                 workFlow.endNode

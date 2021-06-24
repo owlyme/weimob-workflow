@@ -77,7 +77,7 @@ export default function Edge({
 
   return (
     <div ref={container} className={className} data-edge-index={nodeLevelIndex}>
-      <div className="weimobworkflow-center-area">
+      <div className="center-area">
         <Arrow />
         {!disabled && visible && (
           <IconCom type={workFlow.dragNodeData?.node?.icon} />
