@@ -13,6 +13,9 @@ export default function () {
         storeInstance.subscribe(() => {
           setWorkFlow(storeInstance.getState());
         });
+        return () => {
+          setWorkFlow({});
+        }
       }, []);
 
       return <Comp
