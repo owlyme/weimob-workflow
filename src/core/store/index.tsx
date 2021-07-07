@@ -7,14 +7,14 @@ export default function () {
 
   function connect(Comp: any) {
     return function Conncet(props: any) {
-      const [workFlow, setWorkFlow] = useState(storeInstance.getState());
+      const [workFlow, setWorkFlow] = useState<any>(storeInstance.getState());
 
       useEffect(() => {
         storeInstance.subscribe(() => {
           setWorkFlow(storeInstance.getState());
         });
         return () => {
-          setWorkFlow({});
+          storeInstance.reset()
         }
       }, []);
 

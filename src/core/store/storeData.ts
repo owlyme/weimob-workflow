@@ -344,7 +344,7 @@ function createDataStore() {
     });
   };
 
-  const debounceSubscribe: any[] = [];
+  let debounceSubscribe: any[] = [];
 
   const instance = {
     dispatch({ type, ...others }: any) {
@@ -374,6 +374,10 @@ function createDataStore() {
     subscribe(callback: any) {
       debounceSubscribe.push(debounce(callback, 10));
     },
+    reset() {
+      debounceSubscribe = []
+      store.state = initState();
+    }
   };
 
   return instance;

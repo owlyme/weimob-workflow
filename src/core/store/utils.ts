@@ -112,23 +112,16 @@ export function addNodeChoice(choiceNode: any, nodeId: string): void {
   choiceNode?.children?.forEach((node: any) => (node.nodeId = nodeId));
 }
 
-export function addListenerNode(graph:any, data:any) {
-  const { cfg, description, protocol, remark } = data;
-  const config = JSON.parse(cfg || '{}');
+export function addListenerNode(graph:any, listenerConfigData:any) {
+  // const { cfg, description, protocol, remark } = listenerConfig;
+  // const config = JSON.parse(cfg || '{}');
   const node = {
     ...ListenerConfig,
     weimobConfigDisable: true,
     weimobConfigSaved: true,
     configCompleteStatus: true, // 是否显示左上角红点提示
     [CONFIG_KEY]: {
-      desc: description,
-      remark,
-      cfg: {
-        protocol,
-        cfg: {
-          ...config,
-        },
-      },
+      ...listenerConfigData
     },
   };
   const [newNode, maxNodeId] = createNodesNodeId(node, graph.maxNodeId);

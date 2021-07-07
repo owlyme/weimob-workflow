@@ -2,9 +2,9 @@ import React from "react";
 import Arrow from "./index";
 
 export function getPosition(viewPort: HTMLElement) {
+  if (!viewPort) return
   const ele1 = viewPort.querySelector('#end div[data-node-type=end]')
   const ele2 = viewPort.querySelector('#workflow-nodes-layout > .node-edge-conatiner:last-child div.node-container');
-
   if (!ele1 || !ele2) return {display: "none" }
 
   const p0 = viewPort.getBoundingClientRect();
