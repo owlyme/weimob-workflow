@@ -1,12 +1,21 @@
 import React from "react";
 import Arrow from "./index";
+import {NODE_TYPE_END, NODE_TYPE_ASYNC} from "../../constant"
 
 export function getPosition(viewPort: HTMLElement) {
   if (!viewPort) return
-  const ele1 = viewPort.querySelector('#end div[data-node-type=end]')
-  const ele2 = viewPort.querySelector('#workflow-nodes-layout > .node-edge-conatiner:last-child div.node-container');
-  if (!ele1 || !ele2) return {display: "none" }
+  const ele1 = viewPort.querySelector(`#end div[data-node-type=${NODE_TYPE_END}]`);
+  let ele2 = viewPort.querySelector('#workflow-nodes-layout > .node-edge-conatiner:last-child ');
 
+  while(ele2?.className.includes(NODE_TYPE_ASYNC)) {
+    ele2 = ele2.previousElementSibling
+  }
+
+  if (ele2) {
+    ele2 = ele2.querySelector("div.node-container")
+  }
+ 
+  if (!ele1 || !ele2) return {display: "none" }
   const p0 = viewPort.getBoundingClientRect();
   const p1 = ele1.getBoundingClientRect();
   const p2 = ele2.getBoundingClientRect();
