@@ -11,7 +11,8 @@ const iconMaps = {
   connectorIcon: 'iconconnection',
   transformerIcon: 'icontransfer1',
   endIcon: 'iconend',
-  asyncIcon: "iconasync"
+  asyncIcon: "iconasync",
+  mqIcon: "iconMQ"
 };
 
 export default function IconCom({ type, ...other }: any) {

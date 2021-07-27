@@ -14,6 +14,7 @@ export {
   initState, 
   addListenerNode 
 } from './core';
+
 export { default as Node, registerNode, NodeTypeConfigs, NodeTypeComponents } from './nodeType';
 
 export {
@@ -36,6 +37,7 @@ export {
   NODE_TYPE_ASYNC,
   NODE_TYPE_ASYNC_CHILD,
   NODE_TYPE_END,
+  NODE_TYPE_MQ,
 } from "./constant"
 
 

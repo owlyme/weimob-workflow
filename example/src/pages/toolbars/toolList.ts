@@ -8,6 +8,7 @@ import {
   NODE_TYPE_CONNECTOR,
   NODE_TYPE_TRANSFORMER,
   NODE_TYPE_ASYNC,
+  NODE_TYPE_MQ
 } from 'weimob-workflow';
 
 
@@ -20,7 +21,7 @@ const List = [
   NodeTypeConfigs[NODE_TYPE_CONNECTOR],
   NodeTypeConfigs[NODE_TYPE_TRANSFORMER],
   NodeTypeConfigs[NODE_TYPE_ASYNC],
-  
+  NodeTypeConfigs[NODE_TYPE_MQ]
 ];
 
 export const processorNodeConfig = NodeTypeConfigs[NODE_TYPE_PROCESSOR];

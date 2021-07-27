@@ -9,6 +9,8 @@ import { AsyncNode, AsyncChildNode, asyncConfig } from './async';
 import { TryCatchNode, NormalNode, FinallyNode, CatchNode, tryCatchConfig } from './tryCatch';
 import ConnectorNode, { connectorConfig } from './connector';
 import Transformer, { transformerConfig } from './transformer';
+import MqNode, { MqConfig } from './mq';
+
 
 import {
   NODE_TYPE_LISTENER,
@@ -28,8 +30,10 @@ import {
   NODE_TYPE_TRANSFORMER,
   NODE_TYPE_ASYNC,
   NODE_TYPE_ASYNC_CHILD,
-  NODE_TYPE_END
+  NODE_TYPE_END,
+  NODE_TYPE_MQ
 } from '../constant';
+
 import { NodeProps, NodeConfig } from '../core/types';
 
 export const NodeTypeComponents = {
@@ -50,7 +54,8 @@ export const NodeTypeComponents = {
   [NODE_TYPE_CONNECTOR]: ConnectorNode,
   [NODE_TYPE_ASYNC]: AsyncNode,
   [NODE_TYPE_ASYNC_CHILD]: AsyncChildNode,
-  [NODE_TYPE_END]: EndNode
+  [NODE_TYPE_END]: EndNode,
+  [NODE_TYPE_MQ]: MqNode,
 };
 
 export const NodeTypeConfigs = {
@@ -62,7 +67,8 @@ export const NodeTypeConfigs = {
   [NODE_TYPE_CONNECTOR]: connectorConfig,
   [NODE_TYPE_TRANSFORMER]: transformerConfig,
   [NODE_TYPE_ASYNC]: asyncConfig,
-  [NODE_TYPE_END]: EndConfig
+  [NODE_TYPE_END]: EndConfig,
+  [NODE_TYPE_MQ]: MqConfig,
 };
 
 function getNodeTypeComp(nodeType: any) {
