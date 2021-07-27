@@ -118,6 +118,7 @@ export default function paletteHOC(Node: any) {
             </NodeContainer>
             {!node.noEdge && (
               <Edge
+                nextNode={ parentNode.children ? parentNode.children[index + 1] :  null }
                 node={node}
                 nodeLevelIndex={`${levelIndex}-${index}`}
                 dispatch={dispatch}

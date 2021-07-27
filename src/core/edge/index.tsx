@@ -3,6 +3,7 @@ import Arrow from '../arrow';
 import { NodeProps } from '../types';
 import IconCom from '../images/icons';
 import { mouseIsInDragEnterElementArea } from '../utils';
+import { NODE_TYPE_ASYNC } from "../../constant"
 
 function stopAndPrevent(evt: any) {
   evt.stopPropagation();
@@ -11,6 +12,7 @@ function stopAndPrevent(evt: any) {
 const toggoleClassName = (className = '') => `node-edge ${className}`;
 
 export default function Edge({
+  nextNode,
   node,
   nodeLevelIndex,
   dispatch,
@@ -18,6 +20,7 @@ export default function Edge({
   workFlow,
   disabled,
 }: NodeProps) {
+
   const container = useRef<HTMLDivElement>(null);
   const { dragNodeData } = workFlow;
   const [className, setClassName] = useState(toggoleClassName());
@@ -78,7 +81,7 @@ export default function Edge({
   return (
     <div ref={container} className={className} data-edge-index={nodeLevelIndex}>
       <div className="center-area">
-        <Arrow />
+        <Arrow dashed={node.nodeType == NODE_TYPE_ASYNC || nextNode?.nodeType === NODE_TYPE_ASYNC} />
         {!disabled && visible && (
           <IconCom type={workFlow.dragNodeData?.node?.icon} />
         )}

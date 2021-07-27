@@ -2,8 +2,6 @@ import { NodeConfig } from '../../core/types';
 import { NODE_TYPE_MQ } from '../../constant';
 import { CommonNode } from "../baseNode"
 
-
-
 export const MqConfig:NodeConfig = {
   icon: 'mqIcon',
   label: 'MQ',

@@ -21,6 +21,7 @@ export interface NodeConfig {
 }
 
 export interface NodeProps {
+
   node: NodeConfig;
   children?: any;
   parentNode?: NodeConfig;
