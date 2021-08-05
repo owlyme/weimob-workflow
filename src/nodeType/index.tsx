@@ -10,7 +10,8 @@ import { TryCatchNode, NormalNode, FinallyNode, CatchNode, tryCatchConfig } from
 import ConnectorNode, { connectorConfig } from './connector';
 import Transformer, { transformerConfig } from './transformer';
 import MqNode, { MqConfig } from './mq';
-
+import ArtemisNode, { ArtemisConfig } from './artemis';
+import ObjectStoreNode, { ObjectStoreConfig } from './objectStore';
 
 import {
   NODE_TYPE_LISTENER,
@@ -31,7 +32,9 @@ import {
   NODE_TYPE_ASYNC,
   NODE_TYPE_ASYNC_CHILD,
   NODE_TYPE_END,
-  NODE_TYPE_MQ
+  NODE_TYPE_MQ,
+  NODE_TYPE_ARTEMIS,
+  NODE_TYPE_OBJECT_STORE,
 } from '../constant';
 
 import { NodeProps, NodeConfig } from '../core/types';
@@ -56,6 +59,8 @@ export const NodeTypeComponents = {
   [NODE_TYPE_ASYNC_CHILD]: AsyncChildNode,
   [NODE_TYPE_END]: EndNode,
   [NODE_TYPE_MQ]: MqNode,
+  [NODE_TYPE_ARTEMIS]: ArtemisNode,
+  [NODE_TYPE_OBJECT_STORE]: ObjectStoreNode
 };
 
 export const NodeTypeConfigs = {
@@ -69,6 +74,8 @@ export const NodeTypeConfigs = {
   [NODE_TYPE_ASYNC]: asyncConfig,
   [NODE_TYPE_END]: EndConfig,
   [NODE_TYPE_MQ]: MqConfig,
+  [NODE_TYPE_ARTEMIS]: ArtemisConfig,
+  [NODE_TYPE_OBJECT_STORE]: ObjectStoreConfig
 };
 
 function getNodeTypeComp(nodeType: any) {

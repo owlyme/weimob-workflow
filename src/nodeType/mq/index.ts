@@ -6,7 +6,7 @@ export const MqConfig:NodeConfig = {
   icon: 'mqIcon',
   label: 'MQ',
   nodeType: NODE_TYPE_MQ,
-  draggable: false,
+  draggable: true,
   childrenAbleTypes: [],
 }
 

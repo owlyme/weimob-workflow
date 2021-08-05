@@ -38,8 +38,9 @@ export {
   NODE_TYPE_ASYNC_CHILD,
   NODE_TYPE_END,
   NODE_TYPE_MQ,
+  NODE_TYPE_ARTEMIS,
+  NODE_TYPE_OBJECT_STORE
 } from "./constant"
-
 
 export {
   CommonNode,

@@ -20,4 +20,8 @@ export const NODE_TYPE_ASYNC = 'async';
 export const NODE_TYPE_ASYNC_CHILD = 'asyncChild';
 export const NODE_TYPE_END = 'end';
 export const NODE_TYPE_MQ = 'mq';
+export const NODE_TYPE_ARTEMIS = 'artemis';
+export const NODE_TYPE_OBJECT_STORE = 'objectStore';
+
+
 
