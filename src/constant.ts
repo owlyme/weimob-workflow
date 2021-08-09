@@ -22,6 +22,8 @@ export const NODE_TYPE_END = 'end';
 export const NODE_TYPE_MQ = 'mq';
 export const NODE_TYPE_ARTEMIS = 'artemis';
 export const NODE_TYPE_OBJECT_STORE = 'objectStore';
+export const NODE_TYPE_SYNC = 'sync';
+export const NODE_TYPE_SYNC_CHILD = 'syncChild';
 
 
 

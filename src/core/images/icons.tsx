@@ -13,7 +13,8 @@ const iconMaps = {
   endIcon: 'iconend',
   asyncIcon: "iconasync",
   mqIcon: "iconMQ",
-  objectStoreIcon: "iconObjectStore"
+  objectStoreIcon: "iconObjectStore",
+  syncIcon: "iconSync",
 };
 
 export default function IconCom({ type, ...other }: any) {

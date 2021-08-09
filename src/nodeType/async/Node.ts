@@ -20,6 +20,6 @@ export const config = {
 }
 
 
-const ParallelNode = CollapseNode;
-export default ParallelNode;
+const AsyncNode = CollapseNode;
+export default AsyncNode;
 

@@ -12,6 +12,7 @@ import Transformer, { transformerConfig } from './transformer';
 import MqNode, { MqConfig } from './mq';
 import ArtemisNode, { ArtemisConfig } from './artemis';
 import ObjectStoreNode, { ObjectStoreConfig } from './objectStore';
+import { SyncNode, SyncChildNode, syncConfig } from './sync';
 
 import {
   NODE_TYPE_LISTENER,
@@ -35,6 +36,8 @@ import {
   NODE_TYPE_MQ,
   NODE_TYPE_ARTEMIS,
   NODE_TYPE_OBJECT_STORE,
+  NODE_TYPE_SYNC,
+  NODE_TYPE_SYNC_CHILD
 } from '../constant';
 
 import { NodeProps, NodeConfig } from '../core/types';
@@ -60,7 +63,9 @@ export const NodeTypeComponents = {
   [NODE_TYPE_END]: EndNode,
   [NODE_TYPE_MQ]: MqNode,
   [NODE_TYPE_ARTEMIS]: ArtemisNode,
-  [NODE_TYPE_OBJECT_STORE]: ObjectStoreNode
+  [NODE_TYPE_OBJECT_STORE]: ObjectStoreNode,
+  [NODE_TYPE_SYNC]: SyncNode,
+  [NODE_TYPE_SYNC_CHILD]: SyncChildNode,
 };
 
 export const NodeTypeConfigs = {
@@ -75,7 +80,8 @@ export const NodeTypeConfigs = {
   [NODE_TYPE_END]: EndConfig,
   [NODE_TYPE_MQ]: MqConfig,
   [NODE_TYPE_ARTEMIS]: ArtemisConfig,
-  [NODE_TYPE_OBJECT_STORE]: ObjectStoreConfig
+  [NODE_TYPE_OBJECT_STORE]: ObjectStoreConfig,
+  [NODE_TYPE_SYNC]: syncConfig,
 };
 
 function getNodeTypeComp(nodeType: any) {

@@ -6,7 +6,7 @@ import {
 import { DropNode } from "../baseNode"
 
 export const config: NodeConfig = {
-  label: 'async-workflow',
+  // label: 'async-workflow',
   nodeType: NODE_TYPE_ASYNC_CHILD,
   draggable: false,
   configCompleteStatus: true,

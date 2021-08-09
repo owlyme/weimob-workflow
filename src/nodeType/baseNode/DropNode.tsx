@@ -33,12 +33,14 @@ export default function DropNode({
       onContainerDragEnter={setIsDragEnter}
       onContainerDragLeave={setIsDragEnter}
     >
-      <div className="node-container-header">
-        <div>{ node.label + `${showIndex ? ("-" + (index + startIndex)) : ''}`}</div>
-        {showIndex && !disabled && (
-          <NodeActions node={node} dispatch={dispatch} nodeLevelIndex={nodeLevelIndex} />
-        )}
-      </div>
+      {
+        node.label ? <div className="node-container-header">
+          <div>{node.label + `${showIndex ? ("-" + (index + startIndex)) : ''}`}</div>
+          {showIndex && !disabled && (
+            <NodeActions node={node} dispatch={dispatch} nodeLevelIndex={nodeLevelIndex} />
+          )}
+        </div> : null
+      }
 
       {node.children?.length ? (
         children
@@ -48,7 +50,7 @@ export default function DropNode({
         </PurePlaceholder>
       )}
       {
-        showIndex  && <AddBtnOnline onAddNode={onAddChildren} />
+        showIndex && <AddBtnOnline onAddNode={onAddChildren} />
       }
     </DropContainer>
   );
