@@ -25,5 +25,9 @@ export const NODE_TYPE_OBJECT_STORE = 'objectStore';
 export const NODE_TYPE_SYNC = 'sync';
 export const NODE_TYPE_SYNC_CHILD = 'syncChild';
 
+export const NODE_TYPE_REDIS = 'redis';
+export const NODE_TYPE_SET_CONTEXT = 'setContext';
+export const NODE_TYPE_SET_PAYLOAD = 'setPayload';
+
 
 

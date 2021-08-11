@@ -12,6 +12,9 @@ import {
   NODE_TYPE_ARTEMIS,
   NODE_TYPE_OBJECT_STORE,
   NODE_TYPE_SYNC,
+  NODE_TYPE_REDIS,
+  NODE_TYPE_SET_CONTEXT,
+  NODE_TYPE_SET_PAYLOAD,
 } from 'weimob-workflow';
 
 
@@ -28,6 +31,9 @@ const List = [
   NodeTypeConfigs[NODE_TYPE_ARTEMIS],
   NodeTypeConfigs[NODE_TYPE_OBJECT_STORE],
   NodeTypeConfigs[NODE_TYPE_SYNC],
+  NodeTypeConfigs[NODE_TYPE_REDIS],
+  NodeTypeConfigs[NODE_TYPE_SET_CONTEXT],
+  NodeTypeConfigs[NODE_TYPE_SET_PAYLOAD],
 ];
 
 export const processorNodeConfig = NodeTypeConfigs[NODE_TYPE_PROCESSOR];

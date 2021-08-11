@@ -15,6 +15,9 @@ const iconMaps = {
   mqIcon: "iconMQ",
   objectStoreIcon: "iconObjectStore",
   syncIcon: "iconSync",
+  setPayloadIcon: 'iconSetPayload',
+  setContextIcon: 'iconSetContext',
+  redisIcon: 'iconRedis',
 };
 
 export default function IconCom({ type, ...other }: any) {

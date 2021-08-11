@@ -13,6 +13,10 @@ import MqNode, { MqConfig } from './mq';
 import ArtemisNode, { ArtemisConfig } from './artemis';
 import ObjectStoreNode, { ObjectStoreConfig } from './objectStore';
 import { SyncNode, SyncChildNode, syncConfig } from './sync';
+import RedisNode, { redisconfig } from './redis';
+import SetContextNode, { setContextconfig } from './setContext';
+import SetPayloadNode, { setPayloadconfig } from './setPayload';
+
 
 import {
   NODE_TYPE_LISTENER,
@@ -37,7 +41,10 @@ import {
   NODE_TYPE_ARTEMIS,
   NODE_TYPE_OBJECT_STORE,
   NODE_TYPE_SYNC,
-  NODE_TYPE_SYNC_CHILD
+  NODE_TYPE_SYNC_CHILD,
+  NODE_TYPE_REDIS,
+NODE_TYPE_SET_CONTEXT,
+NODE_TYPE_SET_PAYLOAD,
 } from '../constant';
 
 import { NodeProps, NodeConfig } from '../core/types';
@@ -66,6 +73,9 @@ export const NodeTypeComponents = {
   [NODE_TYPE_OBJECT_STORE]: ObjectStoreNode,
   [NODE_TYPE_SYNC]: SyncNode,
   [NODE_TYPE_SYNC_CHILD]: SyncChildNode,
+  [NODE_TYPE_REDIS]: RedisNode,
+  [NODE_TYPE_SET_CONTEXT]: SetContextNode,
+  [NODE_TYPE_SET_PAYLOAD]: SetPayloadNode,
 };
 
 export const NodeTypeConfigs = {
@@ -82,6 +92,9 @@ export const NodeTypeConfigs = {
   [NODE_TYPE_ARTEMIS]: ArtemisConfig,
   [NODE_TYPE_OBJECT_STORE]: ObjectStoreConfig,
   [NODE_TYPE_SYNC]: syncConfig,
+  [NODE_TYPE_REDIS]: redisconfig,
+  [NODE_TYPE_SET_CONTEXT]: setContextconfig,
+  [NODE_TYPE_SET_PAYLOAD]: setPayloadconfig,
 };
 
 function getNodeTypeComp(nodeType: any) {

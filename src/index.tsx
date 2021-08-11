@@ -11,8 +11,8 @@ export {
   Direction,
   NodeConfig,
   NodeProps,
-  initState, 
-  addListenerNode 
+  initState,
+  addListenerNode
 } from './core';
 
 export { default as Node, registerNode, NodeTypeConfigs, NodeTypeComponents } from './nodeType';
@@ -42,6 +42,9 @@ export {
   NODE_TYPE_OBJECT_STORE,
   NODE_TYPE_SYNC,
   NODE_TYPE_SYNC_CHILD,
+  NODE_TYPE_REDIS,
+  NODE_TYPE_SET_CONTEXT,
+  NODE_TYPE_SET_PAYLOAD,
 } from "./constant"
 
 export {
