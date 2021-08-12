@@ -325,10 +325,13 @@ function createDataStore() {
 
       setEndNodeConfig(state: any, { payload: {
         config,
-        configCompleteStatus
+        configCompleteStatus,
+        ...extra
       } }: any) {
         state.endNode[CONFIG_KEY] = config
         state.endNode.configCompleteStatus = configCompleteStatus
+        
+        state.endNode.extra = extra
       },
     },
   };
