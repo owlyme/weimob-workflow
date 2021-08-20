@@ -178,6 +178,7 @@ function createDataStore() {
         } else {
           state.workFlowNodes = initState().workFlowNodes;
         }
+        state.currentNode = {}
         return state;
       },
       // 设置当前选中节点
