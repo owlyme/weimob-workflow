@@ -8,9 +8,10 @@ import {
   NODE_TYPE_TRY_FINALLY,
 } from '../../constant';
 
-import { CollapseNode } from "../baseNode"
+import { CollapseNode } from "../baseNode";
 
 const TryCatchNode = CollapseNode;
+
 export default TryCatchNode;
 
 export const config = {

@@ -34,6 +34,7 @@ export default function Catch(props: NodeProps) {
   }, [node?.weimobConfigSaved, node?.children?.length, nodeLevelIndex, dispatch]);
 
   const deleteForbidden = parentNode?.children && parentNode?.children.length <= 3;
+  
   useEffect(() => {
     dispatch({
       type: 'workFlow/setNodePorpertiesAndValues',

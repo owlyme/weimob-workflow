@@ -1,24 +1,31 @@
 import React from 'react';
 import { NodeProps, NodeConfig } from '../core/types';
-
 import { UndefinedNode } from './baseNode';
 import configs from "./node"
 
-const [ Components, Configs ] = configs.reduce((acc, nodeItem) => {
-  const {reactNode, ...config} = nodeItem;
-
-  return [
-    {
-      ...acc[0],
-      [config.nodeType]: reactNode
-    },
-    {
-      ...acc[1],
-      [config.nodeType]: config
+function createMap(configs: Array<NodeConfig>) {
+  return configs.reduce((acc, nodeItem) => {
+    const {reactNode, ...config} = nodeItem;
+    let ChildComponents = {}
+    let ChildConfigs = {}
+    if (config.children?.length) {
+      [ ChildComponents, ChildConfigs ] = createMap(config.children)
     }
-  ]
-}, [{}, {}]);
-
+    return [
+      {
+        ...acc[0],
+        [config.nodeType]: reactNode,
+        ...ChildComponents
+      },
+      {
+        ...acc[1],
+        [config.nodeType]: config,
+        ...ChildConfigs
+      }
+    ]
+  }, [{}, {}]);
+}
+const [ Components, Configs ] = createMap(configs)
 
 export const NodeTypeComponents = Components;
 export const NodeTypeConfigs = Configs;

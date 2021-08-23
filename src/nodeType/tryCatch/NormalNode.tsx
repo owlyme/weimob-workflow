@@ -10,7 +10,6 @@ const createConfig = (): NodeConfig => ({
   configCompleteStatus: true,
   noEdge: true,
   childrenFlex: true,
- 
   deleteForbidden: true,
   children: [],
 });

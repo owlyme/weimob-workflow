@@ -1,28 +1,14 @@
 import React, { useEffect} from 'react';
-import { NodeProps, NodeConfig } from '../../core/types';
-import {
-  NODE_TYPE_FOR_EACH_CHILD,
-} from '../../constant';
-import { DropNode } from "../baseNode"
+import { NodeProps } from '../../core/types';
+import DropNode from "./DropNode"
 
-export const config: NodeConfig = {
-  // label: 'sync-workflow',
-  nodeType: NODE_TYPE_FOR_EACH_CHILD,
-  draggable: false,
-  configCompleteStatus: true,
-  noEdge: true,
-  childrenFlex: true,
-  deleteForbidden: true,
-  children: []
-};
-
+// 必须有一个子节点
 export default function ChildNode(props: NodeProps) {
   const {
     node,
     nodeLevelIndex,
     dispatch
   } = props;
-
 
   useEffect(() => {
     dispatch({
@@ -34,10 +20,8 @@ export default function ChildNode(props: NodeProps) {
     });
   }, [node?.children?.length, nodeLevelIndex, dispatch]);
 
-  return (
-    <DropNode 
+  return <DropNode 
     {...props}
     disabled={true}>
     </DropNode>
-  );
 }

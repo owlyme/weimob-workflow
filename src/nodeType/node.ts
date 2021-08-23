@@ -1,8 +1,9 @@
 import { NodeConfig } from '../core/types';
 import { nodeTypeSet } from '../constant';
-import { CommonNode, CollapseNode } from "./baseNode";
+import { CommonNode, CollapseNode, ChildrenIsNeed, DropNode } from "./baseNode";
 
 export default [
+    // Listener
     {
         icon: 'listenerIcon',
         label: 'Listener',
@@ -12,6 +13,7 @@ export default [
         childrenAbleTypes: [],
         reactNode: CommonNode,
     },
+    // End
     {
         icon: 'endIcon',
         label: 'End',
@@ -23,6 +25,7 @@ export default [
         configCompleteStatus: true,
         reactNode: CommonNode,
     },
+    // Artemis
     {
         icon: 'mqIcon',
         label: 'Artemis',
@@ -31,6 +34,7 @@ export default [
         childrenAbleTypes: [],
         reactNode: CommonNode,
     },
+    // MQ
     {
         icon: 'mqIcon',
         label: 'MQ',
@@ -39,6 +43,7 @@ export default [
         childrenAbleTypes: [],
         reactNode: CommonNode,
     },
+    // Async
     {
         icon: 'asyncIcon',
         label: 'Async',
@@ -47,8 +52,18 @@ export default [
         draggable: true,
         configCompleteStatus: true,
         reactNode: CollapseNode,
-        children: []
+        children: [{
+            nodeType: nodeTypeSet.NODE_TYPE_ASYNC_CHILD,
+            draggable: false,
+            configCompleteStatus: true,
+            noEdge: true,
+            childrenFlex: true,
+            deleteForbidden: true,
+            children: [],
+            reactNode: ChildrenIsNeed,
+        }]
     },
+    // Choice
     {
         icon: 'choiceIcon',
         label: 'Choice',
@@ -59,6 +74,7 @@ export default [
         reactNode: CollapseNode,
         children: [],
     },
+    // Connector
     {
         icon: 'connectorIcon',
         label: 'Connector',
@@ -67,6 +83,7 @@ export default [
         childrenAbleTypes: [],
         reactNode: CommonNode,
     },
+    // ForEach
     {
         icon: 'syncIcon',
         label: 'ForEach',
@@ -75,8 +92,18 @@ export default [
         draggable: true,
         configCompleteStatus: false,
         reactNode: CollapseNode,
-        children: [],
+        children: [{
+            nodeType: nodeTypeSet.NODE_TYPE_FOR_EACH_CHILD,
+            draggable: false,
+            configCompleteStatus: true,
+            noEdge: true,
+            childrenFlex: true,
+            deleteForbidden: true,
+            children: [],
+            reactNode: ChildrenIsNeed,
+        }],
     },
+    // ObjectStore
     {
         icon: 'objectStoreIcon',
         label: 'ObjectStore',
@@ -85,6 +112,7 @@ export default [
         childrenAbleTypes: [],
         reactNode: CollapseNode,
     },
+    // Parallel
     {
         icon: 'parallelIcon',
         label: 'Parallel',
@@ -95,6 +123,7 @@ export default [
         reactNode: CollapseNode,
         children: [],
     },
+    // Processor
     {
         icon: 'processorIcon',
         label: 'Processor',
@@ -103,6 +132,7 @@ export default [
         childrenAbleTypes: [],
         reactNode: CommonNode,
     },
+    // Redis
     {
         icon: 'redisIcon',
         label: 'Redis',
@@ -111,6 +141,7 @@ export default [
         childrenAbleTypes: [],
         reactNode: CommonNode,
     },
+    // Set Context
     {
         icon: 'setContextIcon',
         label: 'Set Context',
@@ -119,6 +150,7 @@ export default [
         childrenAbleTypes: [],
         reactNode: CommonNode,
     },
+    // Set Payload
     {
         icon: 'setPayloadIcon',
         label: 'Set Payload',
@@ -127,6 +159,7 @@ export default [
         childrenAbleTypes: [],
         reactNode: CommonNode,
     },
+    // Sync
     {
         icon: 'syncIcon',
         label: 'Sync',
@@ -135,8 +168,20 @@ export default [
         draggable: true,
         configCompleteStatus: true,
         reactNode: CollapseNode,
-        children: [],
+        children: [
+            {
+                nodeType: nodeTypeSet.NODE_TYPE_SYNC_CHILD,
+                draggable: false,
+                configCompleteStatus: true,
+                noEdge: true,
+                childrenFlex: true,
+                deleteForbidden: true,
+                children: [],
+                reactNode: ChildrenIsNeed
+            }
+        ],
     },
+    // Transformer
     {
         icon: 'transformerIcon',
         label: 'Transformer',
@@ -146,6 +191,7 @@ export default [
         configCompleteStatus: true,
         reactNode: CollapseNode,
     },
+    // TryCatch
     {
         icon: 'tryIcon',
         label: 'TryCatch',
@@ -160,15 +206,31 @@ export default [
         ],
 
         children: [
-            //   {
-            //     ...normalConfig,
-            //   },
+            {
+                label: 'Normal',
+                nodeType: nodeTypeSet.NODE_TYPE_TRY_NORMAL,
+                draggable: false,
+                configCompleteStatus: true,
+                noEdge: true,
+                childrenFlex: true,
+                deleteForbidden: true,
+                children: [],
+                reactNode: ChildrenIsNeed,
+            },
             //   {
             //     ...catchConfig,
             //   },
-            //   {
-            //     ...finallyConfig
-            //   },
+            {
+                label: 'Finally',
+                nodeType: nodeTypeSet.NODE_TYPE_TRY_FINALLY,
+                draggable: false,
+                configCompleteStatus: true,
+                noEdge: true,
+                childrenFlex: true,
+                showChildAtions: 'always',
+                deleteForbidden: true,
+                reactNode: DropNode
+            },
         ],
     }
 ] as Array<NodeConfig>
