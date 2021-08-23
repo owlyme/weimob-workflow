@@ -1,108 +1,27 @@
 import React from 'react';
-import { NodePlaceholder, UndefinedNode } from './baseNode';
-import ListenerNode, { ListenerConfig } from './listener';
-import EndNode, { EndConfig } from './end';
-import { ChoiceNode, choiceConfig, WhenNode, DefaultNode } from './choice';
-import ProcessorNode, { processorconfig } from './processor';
-import { ParallelNode, ParallelChildNode, parallelConfig } from './parallel';
-import { AsyncNode, AsyncChildNode, asyncConfig } from './async';
-import { TryCatchNode, NormalNode, FinallyNode, CatchNode, tryCatchConfig } from './tryCatch';
-import ConnectorNode, { connectorConfig } from './connector';
-import Transformer, { transformerConfig } from './transformer';
-import MqNode, { MqConfig } from './mq';
-import ArtemisNode, { ArtemisConfig } from './artemis';
-import ObjectStoreNode, { ObjectStoreConfig } from './objectStore';
-import { SyncNode, SyncChildNode, syncConfig } from './sync';
-import RedisNode, { redisconfig } from './redis';
-import SetContextNode, { setContextconfig } from './setContext';
-import SetPayloadNode, { setPayloadconfig } from './setPayload';
-import { ForEachNode, ForEachChildNode, forEachConfig } from './forEach';
-
-
-
-import {
-  NODE_TYPE_LISTENER,
-  NODE_TYPE_PROCESSOR,
-  NODE_TYPE_CHOICE,
-  NODE_TYPE_CHOICE_WHEN,
-  NODE_TYPE_CHOICE_DEFAULT,
-  NODE_TYPE_PARALLEL,
-  NODE_TYPE_PARALLEL_AGGR,
-  NODE_TYPE_PARALLEL_CHILD,
-  NODE_TYPE_PLACEHOLDER,
-  NODE_TYPE_TRY,
-  NODE_TYPE_TRY_NORMAL,
-  NODE_TYPE_TRY_CATCH,
-  NODE_TYPE_TRY_FINALLY,
-  NODE_TYPE_CONNECTOR,
-  NODE_TYPE_TRANSFORMER,
-  NODE_TYPE_ASYNC,
-  NODE_TYPE_ASYNC_CHILD,
-  NODE_TYPE_END,
-  NODE_TYPE_MQ,
-  NODE_TYPE_ARTEMIS,
-  NODE_TYPE_OBJECT_STORE,
-  NODE_TYPE_SYNC,
-  NODE_TYPE_SYNC_CHILD,
-  NODE_TYPE_REDIS,
-  NODE_TYPE_SET_CONTEXT,
-  NODE_TYPE_SET_PAYLOAD,
-  NODE_TYPE_FOR_EACH,
-NODE_TYPE_FOR_EACH_CHILD,
-} from '../constant';
-
 import { NodeProps, NodeConfig } from '../core/types';
 
-export const NodeTypeComponents = {
-  [NODE_TYPE_LISTENER]: ListenerNode,
-  [NODE_TYPE_PROCESSOR]: ProcessorNode,
-  [NODE_TYPE_CHOICE]: ChoiceNode,
-  [NODE_TYPE_CHOICE_WHEN]: WhenNode,
-  [NODE_TYPE_CHOICE_DEFAULT]: DefaultNode,
-  [NODE_TYPE_PARALLEL]: ParallelNode,
-  [NODE_TYPE_PARALLEL_AGGR]: ParallelNode,
-  [NODE_TYPE_PARALLEL_CHILD]: ParallelChildNode,
-  [NODE_TYPE_PLACEHOLDER]: NodePlaceholder,
-  [NODE_TYPE_TRY]: TryCatchNode,
-  [NODE_TYPE_TRY_NORMAL]: NormalNode,
-  [NODE_TYPE_TRY_CATCH]: CatchNode,
-  [NODE_TYPE_TRY_FINALLY]: FinallyNode,
-  [NODE_TYPE_TRANSFORMER]: Transformer,
-  [NODE_TYPE_CONNECTOR]: ConnectorNode,
-  [NODE_TYPE_ASYNC]: AsyncNode,
-  [NODE_TYPE_ASYNC_CHILD]: AsyncChildNode,
-  [NODE_TYPE_END]: EndNode,
-  [NODE_TYPE_MQ]: MqNode,
-  [NODE_TYPE_ARTEMIS]: ArtemisNode,
-  [NODE_TYPE_OBJECT_STORE]: ObjectStoreNode,
-  [NODE_TYPE_SYNC]: SyncNode,
-  [NODE_TYPE_SYNC_CHILD]: SyncChildNode,
-  [NODE_TYPE_REDIS]: RedisNode,
-  [NODE_TYPE_SET_CONTEXT]: SetContextNode,
-  [NODE_TYPE_SET_PAYLOAD]: SetPayloadNode,
-  [NODE_TYPE_FOR_EACH]: ForEachNode,
-  [NODE_TYPE_FOR_EACH_CHILD]: ForEachChildNode,
-};
+import { UndefinedNode } from './baseNode';
+import configs from "./node"
 
-export const NodeTypeConfigs = {
-  [NODE_TYPE_LISTENER]: ListenerConfig,
-  [NODE_TYPE_PROCESSOR]: processorconfig,
-  [NODE_TYPE_CHOICE]: choiceConfig,
-  [NODE_TYPE_PARALLEL]: parallelConfig,
-  [NODE_TYPE_TRY]: tryCatchConfig,
-  [NODE_TYPE_CONNECTOR]: connectorConfig,
-  [NODE_TYPE_TRANSFORMER]: transformerConfig,
-  [NODE_TYPE_ASYNC]: asyncConfig,
-  [NODE_TYPE_END]: EndConfig,
-  [NODE_TYPE_MQ]: MqConfig,
-  [NODE_TYPE_ARTEMIS]: ArtemisConfig,
-  [NODE_TYPE_OBJECT_STORE]: ObjectStoreConfig,
-  [NODE_TYPE_SYNC]: syncConfig,
-  [NODE_TYPE_REDIS]: redisconfig,
-  [NODE_TYPE_SET_CONTEXT]: setContextconfig,
-  [NODE_TYPE_SET_PAYLOAD]: setPayloadconfig,
-  [NODE_TYPE_FOR_EACH]: forEachConfig,
-};
+const [ Components, Configs ] = configs.reduce((acc, nodeItem) => {
+  const {reactNode, ...config} = nodeItem;
+
+  return [
+    {
+      ...acc[0],
+      [config.nodeType]: reactNode
+    },
+    {
+      ...acc[1],
+      [config.nodeType]: config
+    }
+  ]
+}, [{}, {}]);
+
+
+export const NodeTypeComponents = Components;
+export const NodeTypeConfigs = Configs;
 
 function getNodeTypeComp(nodeType: any) {
   return NodeTypeComponents[nodeType]

@@ -46,7 +46,8 @@ export {
   NODE_TYPE_SET_CONTEXT,
   NODE_TYPE_SET_PAYLOAD,
   NODE_TYPE_FOR_EACH,
-  NODE_TYPE_FOR_EACH_CHILD
+  NODE_TYPE_FOR_EACH_CHILD,
+  nodeTypeSet
 } from "./constant"
 
 export {

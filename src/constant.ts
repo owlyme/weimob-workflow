@@ -30,7 +30,7 @@ export const NODE_TYPE_SET_PAYLOAD = 'setPayload';
 export const NODE_TYPE_FOR_EACH = 'forEach';
 export const NODE_TYPE_FOR_EACH_CHILD = 'forEachChild';
 
-export const nodeTypes = {
+export const nodeTypeSet = {
     NODE_TYPE_LISTENER,
     NODE_TYPE_PROCESSOR,
     NODE_TYPE_CHOICE,
