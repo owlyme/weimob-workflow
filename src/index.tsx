@@ -45,6 +45,8 @@ export {
   NODE_TYPE_REDIS,
   NODE_TYPE_SET_CONTEXT,
   NODE_TYPE_SET_PAYLOAD,
+  NODE_TYPE_FOR_EACH,
+  NODE_TYPE_FOR_EACH_CHILD
 } from "./constant"
 
 export {

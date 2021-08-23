@@ -15,6 +15,7 @@ import {
   NODE_TYPE_REDIS,
   NODE_TYPE_SET_CONTEXT,
   NODE_TYPE_SET_PAYLOAD,
+  NODE_TYPE_FOR_EACH
 } from 'weimob-workflow';
 
 
@@ -34,6 +35,8 @@ const List = [
   NodeTypeConfigs[NODE_TYPE_REDIS],
   NodeTypeConfigs[NODE_TYPE_SET_CONTEXT],
   NodeTypeConfigs[NODE_TYPE_SET_PAYLOAD],
+  NodeTypeConfigs[NODE_TYPE_FOR_EACH],
+
 ];
 
 export const processorNodeConfig = NodeTypeConfigs[NODE_TYPE_PROCESSOR];
