@@ -18,6 +18,7 @@ const iconMaps = {
   setPayloadIcon: 'iconSetPayload',
   setContextIcon: 'iconSetContext',
   redisIcon: 'iconRedis',
+  forEachIcon: 'iconforeach',
 };
 
 export default function IconCom({ type, ...other }: any) {

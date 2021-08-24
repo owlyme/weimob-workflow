@@ -6,7 +6,7 @@ import {
 import { CollapseNode } from "../baseNode"
 
 export const config = {
-  icon: 'syncIcon',
+  icon: 'forEachIcon',
   label: 'ForEach',
   nodeType: NODE_TYPE_FOR_EACH,
   childrenAbleTypes: [NODE_TYPE_FOR_EACH_CHILD],
