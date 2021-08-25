@@ -1,34 +1,10 @@
 import React from 'react';
-import { NodeProps, NodeConfig } from '../core/types';
+import { NodeProps, UseProps } from '../core/types';
 import { UndefinedNode } from './baseNode';
-import configs from "./node"
+import configs from "./node";
+import {createComponentsandConfigSet} from "./utils";
 
-function createMap(configs: Array<NodeConfig>) {
-  return configs.reduce((acc, nodeItem) => {
-    const {reactNode, ...config} = nodeItem;
-    let ChildComponents = {}
-    let ChildConfigs = {}
-    if (config.children?.length) {
-      [ ChildComponents, ChildConfigs ] = createMap(config.children)
-    }
-    return [
-      {
-        ...acc[0],
-        [config.nodeType]: reactNode,
-        ...ChildComponents
-      },
-      {
-        ...acc[1],
-        [config.nodeType]: config,
-        ...ChildConfigs
-      }
-    ]
-  }, [{}, {}]);
-}
-const [ Components, Configs ] = createMap(configs)
-
-export const NodeTypeComponents = Components;
-export const NodeTypeConfigs = Configs;
+export const [ NodeTypeComponents, NodeTypeConfigs ] = createComponentsandConfigSet(configs);
 
 function getNodeTypeComp(nodeType: any) {
   return NodeTypeComponents[nodeType]
@@ -36,12 +12,6 @@ function getNodeTypeComp(nodeType: any) {
     : UndefinedNode;
 }
 
-interface UseProps {
-  nodeType: string;
-  node?: React.ReactElement;
-  form?: React.ReactElement;
-  config: NodeConfig;
-}
 
 export function registerNode(params: UseProps[]): void {
   (params || []).forEach(({ nodeType, node, config }) => {

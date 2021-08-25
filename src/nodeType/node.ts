@@ -11,6 +11,7 @@ export const listenerConfig = {
     childrenAbleTypes: [],
     reactNode: CommonNode,
 }
+
 export const endConfig = {
     icon: 'endIcon',
     label: 'End',
