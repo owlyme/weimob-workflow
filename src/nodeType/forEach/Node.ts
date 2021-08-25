@@ -11,7 +11,7 @@ export const config = {
   nodeType: NODE_TYPE_FOR_EACH,
   childrenAbleTypes: [NODE_TYPE_FOR_EACH_CHILD],
   draggable: true,
-  configCompleteStatus: false,
+  configCompleteStatus: true,
   children: [
     {
       ...defaultConfig
