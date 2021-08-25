@@ -1,8 +1,10 @@
 import { NodeConfig } from '../core/types';
 import { nodeTypeSet } from '../constant';
-import { CommonNode, CollapseNode, ChildrenIsNeed, DropNode } from "./baseNode";
+import { CommonNode, CollapseNode, ChildrenIsNeed, DropNode, MultipleNode } from "./baseNode";
+
 
 export default [
+    // 单个节点 -----------------------------------------------------
     // Listener
     {
         icon: 'listenerIcon',
@@ -10,6 +12,15 @@ export default [
         nodeType: nodeTypeSet.NODE_TYPE_LISTENER,
         draggable: false,
         deleteForbidden: true,
+        childrenAbleTypes: [],
+        reactNode: CommonNode,
+    },
+    // Connector
+    {
+        icon: 'connectorIcon',
+        label: 'Connector',
+        nodeType: nodeTypeSet.NODE_TYPE_CONNECTOR,
+        draggable: true,
         childrenAbleTypes: [],
         reactNode: CommonNode,
     },
@@ -43,6 +54,62 @@ export default [
         childrenAbleTypes: [],
         reactNode: CommonNode,
     },
+    // ObjectStore
+    {
+        icon: 'objectStoreIcon',
+        label: 'ObjectStore',
+        nodeType: nodeTypeSet.NODE_TYPE_OBJECT_STORE,
+        draggable: true,
+        childrenAbleTypes: [],
+        reactNode: CollapseNode,
+    },
+    // Processor
+    {
+        icon: 'processorIcon',
+        label: 'Processor',
+        nodeType: nodeTypeSet.NODE_TYPE_PROCESSOR,
+        draggable: true,
+        childrenAbleTypes: [],
+        reactNode: CommonNode,
+    },
+     // Set Context
+    {
+        icon: 'setContextIcon',
+        label: 'Set Context',
+        nodeType: nodeTypeSet.NODE_TYPE_SET_CONTEXT,
+        draggable: true,
+        childrenAbleTypes: [],
+        reactNode: CommonNode,
+    },
+    // Set Payload
+    {
+        icon: 'setPayloadIcon',
+        label: 'Set Payload',
+        nodeType: nodeTypeSet.NODE_TYPE_SET_PAYLOAD,
+        draggable: true,
+        childrenAbleTypes: [],
+        reactNode: CommonNode,
+    },
+    // Transformer
+    {
+        icon: 'transformerIcon',
+        label: 'Transformer',
+        nodeType: nodeTypeSet.NODE_TYPE_TRANSFORMER,
+        draggable: true,
+        childrenAbleTypes: [],
+        configCompleteStatus: true,
+        reactNode: CollapseNode,
+    },
+    // Redis
+    {
+        icon: 'redisIcon',
+        label: 'Redis',
+        nodeType: nodeTypeSet.NODE_TYPE_REDIS,
+        draggable: true,
+        childrenAbleTypes: [],
+        reactNode: CommonNode,
+    },
+    // 有一组嵌套子节点 ------------------------------------------------------------------
     // Async
     {
         icon: 'asyncIcon',
@@ -62,102 +129,6 @@ export default [
             children: [],
             reactNode: ChildrenIsNeed,
         }]
-    },
-    // Choice
-    {
-        icon: 'choiceIcon',
-        label: 'Choice',
-        nodeType: nodeTypeSet.NODE_TYPE_CHOICE,
-        draggable: true,
-        configCompleteStatus: true,
-        childrenAbleTypes: [nodeTypeSet.NODE_TYPE_CHOICE_WHEN, nodeTypeSet.NODE_TYPE_CHOICE_DEFAULT],
-        reactNode: CollapseNode,
-        children: [],
-    },
-    // Connector
-    {
-        icon: 'connectorIcon',
-        label: 'Connector',
-        nodeType: nodeTypeSet.NODE_TYPE_CONNECTOR,
-        draggable: true,
-        childrenAbleTypes: [],
-        reactNode: CommonNode,
-    },
-    // ForEach
-    {
-        icon: 'syncIcon',
-        label: 'ForEach',
-        nodeType: nodeTypeSet.NODE_TYPE_FOR_EACH,
-        childrenAbleTypes: [nodeTypeSet.NODE_TYPE_FOR_EACH_CHILD],
-        draggable: true,
-        configCompleteStatus: false,
-        reactNode: CollapseNode,
-        children: [{
-            nodeType: nodeTypeSet.NODE_TYPE_FOR_EACH_CHILD,
-            draggable: false,
-            configCompleteStatus: true,
-            noEdge: true,
-            childrenFlex: true,
-            deleteForbidden: true,
-            children: [],
-            reactNode: ChildrenIsNeed,
-        }],
-    },
-    // ObjectStore
-    {
-        icon: 'objectStoreIcon',
-        label: 'ObjectStore',
-        nodeType: nodeTypeSet.NODE_TYPE_OBJECT_STORE,
-        draggable: true,
-        childrenAbleTypes: [],
-        reactNode: CollapseNode,
-    },
-    // Parallel
-    {
-        icon: 'parallelIcon',
-        label: 'Parallel',
-        nodeType: nodeTypeSet.NODE_TYPE_PARALLEL_AGGR,
-        childrenAbleTypes: [nodeTypeSet.NODE_TYPE_PARALLEL_CHILD],
-        draggable: true,
-        configCompleteStatus: true,
-        reactNode: CollapseNode,
-        children: [],
-    },
-    // Processor
-    {
-        icon: 'processorIcon',
-        label: 'Processor',
-        nodeType: nodeTypeSet.NODE_TYPE_PROCESSOR,
-        draggable: true,
-        childrenAbleTypes: [],
-        reactNode: CommonNode,
-    },
-    // Redis
-    {
-        icon: 'redisIcon',
-        label: 'Redis',
-        nodeType: nodeTypeSet.NODE_TYPE_REDIS,
-        draggable: true,
-        childrenAbleTypes: [],
-        reactNode: CommonNode,
-    },
-    // Set Context
-    {
-        icon: 'setContextIcon',
-        label: 'Set Context',
-        nodeType: nodeTypeSet.NODE_TYPE_SET_CONTEXT,
-        draggable: true,
-        childrenAbleTypes: [],
-        reactNode: CommonNode,
-    },
-    // Set Payload
-    {
-        icon: 'setPayloadIcon',
-        label: 'Set Payload',
-        nodeType: nodeTypeSet.NODE_TYPE_SET_PAYLOAD,
-        draggable: true,
-        childrenAbleTypes: [],
-        reactNode: CommonNode,
     },
     // Sync
     {
@@ -181,15 +152,85 @@ export default [
             }
         ],
     },
-    // Transformer
+    // ForEach
     {
-        icon: 'transformerIcon',
-        label: 'Transformer',
-        nodeType: nodeTypeSet.NODE_TYPE_TRANSFORMER,
+        icon: 'syncIcon',
+        label: 'ForEach',
+        nodeType: nodeTypeSet.NODE_TYPE_FOR_EACH,
+        childrenAbleTypes: [nodeTypeSet.NODE_TYPE_FOR_EACH_CHILD],
         draggable: true,
-        childrenAbleTypes: [],
+        configCompleteStatus: false,
+        reactNode: CollapseNode,
+        children: [{
+            nodeType: nodeTypeSet.NODE_TYPE_FOR_EACH_CHILD,
+            draggable: false,
+            configCompleteStatus: true,
+            noEdge: true,
+            childrenFlex: true,
+            deleteForbidden: true,
+            children: [],
+            reactNode: ChildrenIsNeed,
+        }],
+    },
+    // 有多组嵌套子节点------------------------------------------------------------------------------------
+    // Parallel
+    {
+        icon: 'parallelIcon',
+        label: 'Parallel',
+        nodeType: nodeTypeSet.NODE_TYPE_PARALLEL_AGGR,
+        childrenAbleTypes: [nodeTypeSet.NODE_TYPE_PARALLEL_CHILD],
+        draggable: true,
         configCompleteStatus: true,
         reactNode: CollapseNode,
+        children: [
+            {
+                label: 'child',
+                nodeType: nodeTypeSet.NODE_TYPE_PARALLEL_CHILD,
+                draggable: false,
+                configCompleteStatus: true,
+                noEdge: true,
+                childrenFlex: true,
+                deleteForbidden: true,
+                children: [],
+                minChildNum: 1,
+                reactNode: MultipleNode,
+              }
+        ],
+    },
+    // Choice
+    {
+        icon: 'choiceIcon',
+        label: 'Choice',
+        nodeType: nodeTypeSet.NODE_TYPE_CHOICE,
+        draggable: true,
+        configCompleteStatus: true,
+        childrenAbleTypes: [nodeTypeSet.NODE_TYPE_CHOICE_WHEN, nodeTypeSet.NODE_TYPE_CHOICE_DEFAULT],
+        reactNode: CollapseNode,
+        children: [
+            {
+                label: 'When',
+                nodeType: nodeTypeSet.NODE_TYPE_CHOICE_WHEN,
+                draggable: false,
+                noEdge: true,
+                childrenFlex: true,
+                deleteForbidden: false,
+                children: [],
+                minChildNum: 2,
+                reactNode: MultipleNode,
+              },
+              {
+                label: 'Defalut',
+                nodeType: nodeTypeSet.NODE_TYPE_CHOICE_DEFAULT,
+                draggable: false,
+                configCompleteStatus: true,
+                noEdge: true,
+                childrenFlex: true,
+                showChildAtions: 'always',
+                deleteForbidden: true,
+                children: [],
+                reactNode: DropNode
+              }
+        ],
     },
     // TryCatch
     {
@@ -217,9 +258,18 @@ export default [
                 children: [],
                 reactNode: ChildrenIsNeed,
             },
-            //   {
-            //     ...catchConfig,
-            //   },
+            {
+                label: 'Catch',
+                nodeType: nodeTypeSet.NODE_TYPE_TRY_CATCH,
+                draggable: false,
+                noEdge: true,
+                childrenFlex: true,
+                deleteForbidden: false,
+                children: [],
+                configCompleteStatus: true,
+                minChildNum: 3,
+                reactNode: MultipleNode,
+              },
             {
                 label: 'Finally',
                 nodeType: nodeTypeSet.NODE_TYPE_TRY_FINALLY,

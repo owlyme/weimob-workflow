@@ -1,28 +1,20 @@
 import React, { useEffect } from 'react';
-import { NODE_TYPE_CHOICE_WHEN } from '../../constant';
-import { NodeProps, NodeConfig } from '../../core/types';
-import { DropNode } from "../baseNode"
+import { NodeProps } from '../../core/types';
+import DropNode  from "./DropNode"
 
-const createConfig = (): NodeConfig => ({
-  label: 'When',
-  nodeType: NODE_TYPE_CHOICE_WHEN,
-  draggable: false,
-  noEdge: true,
-  childrenFlex: true,
-  deleteForbidden: false,
-  children: [],
-});
-
-export default function When(props: NodeProps) {
+// 可以创建同组容器节点
+export default function MultipleNode(props: NodeProps) {
   const {
     node,
     nodeLevelIndex,
     dispatch,
     parentNode,
     disabled,
+    minChildNum
   } = props;
 
-  const deleteForbidden = parentNode && parentNode?.children && parentNode.children?.length <= 2;
+  const deleteForbidden = parentNode && parentNode?.children && parentNode.children?.length <= minChildNum;
+  
   useEffect(() => {
     dispatch({
       type: 'workFlow/setNodePorpertiesAndValues',
@@ -36,14 +28,20 @@ export default function When(props: NodeProps) {
 
   const addChildren = (evt: MouseEvent) => {
     evt.stopPropagation();
-    const node = {
-      ...createConfig(),
-    };
+    const {label, nodeType,draggable, childrenFlex, } = node
 
     dispatch({
       type: 'workFlow/insertBrotherNode',
       payload: {
-        node,
+        node: {
+            label,
+            nodeType,
+            draggable,
+            noEdge: true,
+            childrenFlex,
+            deleteForbidden: false,
+            children: [],
+        },
         nodeLevelIndex,
       },
     });
@@ -59,4 +57,4 @@ export default function When(props: NodeProps) {
   );
 }
 
-export const config = createConfig();
+
