@@ -2,19 +2,33 @@ import { NodeConfig } from '../core/types';
 import { nodeTypeSet } from '../constant';
 import { CommonNode, CollapseNode, ChildrenIsNeed, DropNode, MultipleNode } from "./baseNode";
 
+export const listenerConfig = {
+    icon: 'listenerIcon',
+    label: 'Listener',
+    nodeType: nodeTypeSet.NODE_TYPE_LISTENER,
+    draggable: false,
+    deleteForbidden: true,
+    childrenAbleTypes: [],
+    reactNode: CommonNode,
+}
+export const endConfig = {
+    icon: 'endIcon',
+    label: 'End',
+    nodeType: nodeTypeSet.NODE_TYPE_END,
+    draggable: false,
+    showActions: false,
+    childrenAbleTypes: [],
+    nodeId: "n-000",
+    configCompleteStatus: true,
+    reactNode: CommonNode,
+}
 
 export default [
     // 单个节点 -----------------------------------------------------
     // Listener
-    {
-        icon: 'listenerIcon',
-        label: 'Listener',
-        nodeType: nodeTypeSet.NODE_TYPE_LISTENER,
-        draggable: false,
-        deleteForbidden: true,
-        childrenAbleTypes: [],
-        reactNode: CommonNode,
-    },
+    listenerConfig,
+    // End
+    endConfig,
     // Connector
     {
         icon: 'connectorIcon',
@@ -22,18 +36,6 @@ export default [
         nodeType: nodeTypeSet.NODE_TYPE_CONNECTOR,
         draggable: true,
         childrenAbleTypes: [],
-        reactNode: CommonNode,
-    },
-    // End
-    {
-        icon: 'endIcon',
-        label: 'End',
-        nodeType: nodeTypeSet.NODE_TYPE_END,
-        draggable: false,
-        showActions: false,
-        childrenAbleTypes: [],
-        nodeId: "n-000",
-        configCompleteStatus: true,
         reactNode: CommonNode,
     },
     // Artemis
@@ -72,7 +74,7 @@ export default [
         childrenAbleTypes: [],
         reactNode: CommonNode,
     },
-     // Set Context
+    // Set Context
     {
         icon: 'setContextIcon',
         label: 'Set Context',
@@ -193,8 +195,9 @@ export default [
                 deleteForbidden: true,
                 children: [],
                 minChildNum: 1,
+                showIndex: true,
                 reactNode: MultipleNode,
-              }
+            }
         ],
     },
     // Choice
@@ -216,9 +219,10 @@ export default [
                 deleteForbidden: false,
                 children: [],
                 minChildNum: 2,
+                showIndex: true,
                 reactNode: MultipleNode,
-              },
-              {
+            },
+            {
                 label: 'Defalut',
                 nodeType: nodeTypeSet.NODE_TYPE_CHOICE_DEFAULT,
                 draggable: false,
@@ -229,7 +233,7 @@ export default [
                 deleteForbidden: true,
                 children: [],
                 reactNode: DropNode
-              }
+            }
         ],
     },
     // TryCatch
@@ -268,8 +272,10 @@ export default [
                 children: [],
                 configCompleteStatus: true,
                 minChildNum: 3,
+                showIndex: true,
+                startIndex: 0,
                 reactNode: MultipleNode,
-              },
+            },
             {
                 label: 'Finally',
                 nodeType: nodeTypeSet.NODE_TYPE_TRY_FINALLY,

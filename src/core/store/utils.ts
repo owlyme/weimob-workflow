@@ -1,6 +1,5 @@
-import { EndConfig } from '../../nodeType/end';
-import { ListenerConfig } from '../../nodeType/listener';
-import {CONFIG_KEY, NODE_TYPE_LISTENER} from "../../constant"
+import { endConfig, listenerConfig } from '../../nodeType/node';
+import { CONFIG_KEY, NODE_TYPE_LISTENER } from "../../constant"
 
 export const initState = () => ({
   workFlowNodes: {
@@ -14,7 +13,7 @@ export const initState = () => ({
     unSaved: false,
   },
   endNode: {
-    ...EndConfig
+    ...endConfig
   },
   currentNode: {},
   dragNodeData: {},
@@ -116,7 +115,7 @@ export function addListenerNode(graph:any, listenerConfigData:any) {
   // const { cfg, description, protocol, remark } = listenerConfig;
   // const config = JSON.parse(cfg || '{}');
   const node = {
-    ...ListenerConfig,
+    ...listenerConfig,
     weimobConfigDisable: true,
     weimobConfigSaved: true,
     configCompleteStatus: true, // 是否显示左上角红点提示

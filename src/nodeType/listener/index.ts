@@ -1,6 +1,6 @@
 import { NodeConfig } from '../../core/types';
 import { NODE_TYPE_LISTENER } from '../../constant';
-import { CommonNode } from "../baseNode"
+
 
 export const ListenerConfig:NodeConfig = {
   icon: 'listenerIcon',
@@ -11,8 +11,5 @@ export const ListenerConfig:NodeConfig = {
   childrenAbleTypes: [],
 }
 
-const ListenerNode = CommonNode;
-
-export default ListenerNode;
 
 

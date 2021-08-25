@@ -10,11 +10,10 @@ export default function MultipleNode(props: NodeProps) {
     dispatch,
     parentNode,
     disabled,
-    minChildNum
+    minChildNum,
   } = props;
-
   const deleteForbidden = parentNode && parentNode?.children && parentNode.children?.length <= minChildNum;
-  
+
   useEffect(() => {
     dispatch({
       type: 'workFlow/setNodePorpertiesAndValues',
@@ -28,7 +27,7 @@ export default function MultipleNode(props: NodeProps) {
 
   const addChildren = (evt: MouseEvent) => {
     evt.stopPropagation();
-    const {label, nodeType,draggable, childrenFlex, } = node
+    const {label, nodeType,draggable, childrenFlex, showIndex, startIndex} = node
 
     dispatch({
       type: 'workFlow/insertBrotherNode',
@@ -41,6 +40,8 @@ export default function MultipleNode(props: NodeProps) {
             childrenFlex,
             deleteForbidden: false,
             children: [],
+            showIndex,
+            startIndex
         },
         nodeLevelIndex,
       },
@@ -51,7 +52,8 @@ export default function MultipleNode(props: NodeProps) {
     <DropNode 
     {...props}
     disabled={deleteForbidden && !disabled}
-    showIndex
+    showIndex={node.showIndex}
+    startIndex={node.startIndex}
     onAddChildren={addChildren}>
     </DropNode>
   );
