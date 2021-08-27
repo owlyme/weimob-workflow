@@ -64,7 +64,7 @@ export default [
         nodeType: nodeTypeSet.NODE_TYPE_OBJECT_STORE,
         draggable: true,
         childrenAbleTypes: [],
-        reactNode: CollapseNode,
+        reactNode: CommonNode,
     },
     // Processor
     {
@@ -101,7 +101,7 @@ export default [
         draggable: true,
         childrenAbleTypes: [],
         configCompleteStatus: true,
-        reactNode: CollapseNode,
+        reactNode: CommonNode,
     },
     // Redis
     {
@@ -122,6 +122,7 @@ export default [
         draggable: true,
         configCompleteStatus: true,
         reactNode: CollapseNode,
+        childrenKey: "cfg.subWorkflow",
         children: [{
             nodeType: nodeTypeSet.NODE_TYPE_ASYNC_CHILD,
             draggable: false,
@@ -142,6 +143,7 @@ export default [
         draggable: true,
         configCompleteStatus: true,
         reactNode: CollapseNode,
+        childrenKey: "cfg.nodes",
         children: [
             {
                 nodeType: nodeTypeSet.NODE_TYPE_SYNC_CHILD,
@@ -164,6 +166,7 @@ export default [
         draggable: true,
         configCompleteStatus: false,
         reactNode: CollapseNode,
+        childrenKey: "cfg.nodes",
         children: [{
             nodeType: nodeTypeSet.NODE_TYPE_FOR_EACH_CHILD,
             draggable: false,
@@ -185,6 +188,7 @@ export default [
         draggable: true,
         configCompleteStatus: true,
         reactNode: CollapseNode,
+        childrenKey: "cfg.parallel",
         children: [
             {
                 label: 'child',
@@ -210,6 +214,7 @@ export default [
         configCompleteStatus: true,
         childrenAbleTypes: [nodeTypeSet.NODE_TYPE_CHOICE_WHEN, nodeTypeSet.NODE_TYPE_CHOICE_DEFAULT],
         reactNode: CollapseNode,
+        childrenKey: "cfg.conditions",
         children: [
             {
                 label: 'When',
@@ -222,6 +227,7 @@ export default [
                 minChildNum: 2,
                 showIndex: true,
                 reactNode: MultipleNode,
+                childrenKey: "pipeline"
             },
             {
                 label: 'Defalut',
@@ -233,7 +239,8 @@ export default [
                 showChildAtions: 'always',
                 deleteForbidden: true,
                 children: [],
-                reactNode: DropNode
+                reactNode: DropNode,
+                childrenKey: "pipeline"
             }
         ],
     },
@@ -250,7 +257,7 @@ export default [
             nodeTypeSet.NODE_TYPE_TRY_CATCH,
             nodeTypeSet.NODE_TYPE_TRY_FINALLY,
         ],
-
+        childrenKey: "cfg.conditions",
         children: [
             {
                 label: 'Normal',
@@ -262,6 +269,8 @@ export default [
                 deleteForbidden: true,
                 children: [],
                 reactNode: ChildrenIsNeed,
+                childrenKey: "pipeline"
+
             },
             {
                 label: 'Catch',
@@ -276,6 +285,7 @@ export default [
                 showIndex: true,
                 startIndex: 0,
                 reactNode: MultipleNode,
+                childrenKey: "pipeline"
             },
             {
                 label: 'Finally',
@@ -286,7 +296,8 @@ export default [
                 childrenFlex: true,
                 showChildAtions: 'always',
                 deleteForbidden: true,
-                reactNode: DropNode
+                reactNode: DropNode,
+                childrenKey: "pipeline"
             },
         ],
     }

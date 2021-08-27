@@ -27,8 +27,8 @@ export const NODE_TYPE_SYNC_CHILD = 'syncChild';
 export const NODE_TYPE_REDIS = 'redis';
 export const NODE_TYPE_SET_CONTEXT = 'setContext';
 export const NODE_TYPE_SET_PAYLOAD = 'setPayload';
-export const NODE_TYPE_FOR_EACH = 'forEach';
-export const NODE_TYPE_FOR_EACH_CHILD = 'forEachChild';
+export const NODE_TYPE_FOR_EACH = 'foreach';
+export const NODE_TYPE_FOR_EACH_CHILD = 'foreachChild';
 
 export const nodeTypeSet = {
     NODE_TYPE_LISTENER,

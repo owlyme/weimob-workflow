@@ -23,5 +23,5 @@ const List = [
 ];
 
 export const processorNodeConfig = NodeTypeConfigs[nodeTypeSet.NODE_TYPE_PROCESSOR];
-console.log(List)
+
 export default List;

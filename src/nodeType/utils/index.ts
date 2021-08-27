@@ -1,4 +1,5 @@
 import {  NodeConfig } from '../../core/types';
+
 export function createComponentsandConfigSet(configs: Array<NodeConfig>) {
     return configs.reduce((acc, nodeItem) => {
       const {reactNode, ...config} = nodeItem;

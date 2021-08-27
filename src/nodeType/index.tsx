@@ -12,7 +12,6 @@ function getNodeTypeComp(nodeType: any) {
     : UndefinedNode;
 }
 
-
 export function registerNode(params: UseProps[]): void {
   (params || []).forEach(({ nodeType, node, config }) => {
     if (!nodeType) {
