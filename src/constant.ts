@@ -29,7 +29,8 @@ export const NODE_TYPE_SET_CONTEXT = 'setContext';
 export const NODE_TYPE_SET_PAYLOAD = 'setPayload';
 export const NODE_TYPE_FOR_EACH = 'foreach';
 export const NODE_TYPE_FOR_EACH_CHILD = 'foreachChild';
-
+export const NODE_TYPE_WHILE = 'while';
+export const NODE_TYPE_WHILE_CHILD = 'whileChild';
 
 export const nodeTypes = {
     NODE_TYPE_LISTENER,

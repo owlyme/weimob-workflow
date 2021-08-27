@@ -17,8 +17,7 @@ import RedisNode, { redisconfig } from './redis';
 import SetContextNode, { setContextconfig } from './setContext';
 import SetPayloadNode, { setPayloadconfig } from './setPayload';
 import { ForEachNode, ForEachChildNode, forEachConfig } from './forEach';
-
-
+import { WhileNode, WhileChildNode, whileConfig } from './while';
 
 import {
   NODE_TYPE_LISTENER,
@@ -48,7 +47,9 @@ import {
   NODE_TYPE_SET_CONTEXT,
   NODE_TYPE_SET_PAYLOAD,
   NODE_TYPE_FOR_EACH,
-NODE_TYPE_FOR_EACH_CHILD,
+  NODE_TYPE_FOR_EACH_CHILD,
+  NODE_TYPE_WHILE,
+  NODE_TYPE_WHILE_CHILD
 } from '../constant';
 
 import { NodeProps, NodeConfig } from '../core/types';
@@ -82,6 +83,8 @@ export const NodeTypeComponents = {
   [NODE_TYPE_SET_PAYLOAD]: SetPayloadNode,
   [NODE_TYPE_FOR_EACH]: ForEachNode,
   [NODE_TYPE_FOR_EACH_CHILD]: ForEachChildNode,
+  [NODE_TYPE_WHILE]: WhileNode,
+  [NODE_TYPE_WHILE_CHILD]: WhileChildNode,
 };
 
 export const NodeTypeConfigs = {
@@ -102,6 +105,7 @@ export const NodeTypeConfigs = {
   [NODE_TYPE_SET_CONTEXT]: setContextconfig,
   [NODE_TYPE_SET_PAYLOAD]: setPayloadconfig,
   [NODE_TYPE_FOR_EACH]: forEachConfig,
+  [NODE_TYPE_WHILE]: whileConfig,
 };
 
 function getNodeTypeComp(nodeType: any) {
