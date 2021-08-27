@@ -23,7 +23,6 @@ export default function ChildNode(props: NodeProps) {
     dispatch
   } = props;
 
-
   useEffect(() => {
     dispatch({
       type: 'workFlow/setNodePorpertiesAndValues',
