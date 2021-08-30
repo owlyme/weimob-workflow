@@ -73,6 +73,7 @@ export default [
         nodeType: nodeTypeSet.NODE_TYPE_PROCESSOR,
         draggable: true,
         childrenAbleTypes: [],
+        configCompleteStatus: false,
         reactNode: CommonNode,
     },
     // Set Context
@@ -270,7 +271,6 @@ export default [
                 children: [],
                 reactNode: ChildrenIsNeed,
                 childrenKey: "pipeline"
-
             },
             {
                 label: 'Catch',

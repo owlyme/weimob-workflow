@@ -27,7 +27,8 @@ export default function MultipleNode(props: NodeProps) {
 
   const addChildren = (evt: MouseEvent) => {
     evt.stopPropagation();
-    const {label, nodeType,draggable, childrenFlex, showIndex, startIndex} = node
+
+    const { label, nodeType, childrenFlex, draggable, showIndex, startIndex, childrenKey } = node
 
     dispatch({
       type: 'workFlow/insertBrotherNode',
@@ -39,9 +40,10 @@ export default function MultipleNode(props: NodeProps) {
             noEdge: true,
             childrenFlex,
             deleteForbidden: false,
-            children: [],
             showIndex,
-            startIndex
+            startIndex,
+            childrenKey,
+            children: [],
         },
         nodeLevelIndex,
       },

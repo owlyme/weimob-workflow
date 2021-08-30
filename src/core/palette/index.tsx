@@ -152,7 +152,6 @@ export default function paletteHOC(Node: any) {
         >
           {renderNodeList(workFlow.workFlowNodes || {}, disabled)}
         </DropContainer>
-
         {
           workFlow.endNode && <div className="node-layout" id="end">
             {renderNodeList({
@@ -164,7 +163,6 @@ export default function paletteHOC(Node: any) {
         }
 
         <Polyline style={rectStyle} />
-
       </DeleteContainer>
     );
   }

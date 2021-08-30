@@ -15,7 +15,7 @@ export {
   addListenerNode
 } from './core';
 
-export { default as Node, registerNode, NodeTypeConfigs, NodeTypeComponents } from './nodeType';
+export { default as Node, registerNode, NodeTypeConfigs, NodeTypeComponents, matchProperty } from './nodeType';
 
 export {
   CONFIG_KEY,

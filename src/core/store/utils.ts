@@ -4,7 +4,7 @@ import { CONFIG_KEY, NODE_TYPE_LISTENER } from "../../constant"
 export const initState = () => ({
   workFlowNodes: {
     nodeLevelIndex: '0',
-    nodeThye: 'root',
+    nodeType: 'root',
     nodeId: 0,
     maxNodeId: 0,
     root: true,

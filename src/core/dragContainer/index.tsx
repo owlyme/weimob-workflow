@@ -2,6 +2,9 @@ import React from 'react';
 import { NodeProps } from '../types';
 import { setDragImage } from '../utils';
 
+// 拖动相关操作
+// 将拖动的保存到store，以便托动结束时使用该节点配置
+
 export default function DragContainer({
   node,
   nodeLevelIndex,
