@@ -20,6 +20,7 @@ const List = [
   NodeTypeConfigs[nodeTypeSet.NODE_TYPE_SET_CONTEXT],
   NodeTypeConfigs[nodeTypeSet.NODE_TYPE_SET_PAYLOAD],
   NodeTypeConfigs[nodeTypeSet.NODE_TYPE_FOR_EACH],
+  NodeTypeConfigs[nodeTypeSet.NODE_TYPE_WHILE]
 ];
 
 export const processorNodeConfig = NodeTypeConfigs[nodeTypeSet.NODE_TYPE_PROCESSOR];

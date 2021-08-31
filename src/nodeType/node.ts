@@ -160,7 +160,7 @@ export default [
     },
     // ForEach
     {
-        icon: 'syncIcon',
+        icon: 'forEachIcon',
         label: 'ForEach',
         nodeType: nodeTypeSet.NODE_TYPE_FOR_EACH,
         childrenAbleTypes: [nodeTypeSet.NODE_TYPE_FOR_EACH_CHILD],
@@ -170,6 +170,27 @@ export default [
         childrenKey: "cfg.nodes",
         children: [{
             nodeType: nodeTypeSet.NODE_TYPE_FOR_EACH_CHILD,
+            draggable: false,
+            configCompleteStatus: true,
+            noEdge: true,
+            childrenFlex: true,
+            deleteForbidden: true,
+            children: [],
+            reactNode: ChildrenIsNeed,
+        }],
+    },
+    // while
+    {
+        icon: 'forEachIcon',
+        label: 'while',
+        nodeType: nodeTypeSet.NODE_TYPE_WHILE,
+        childrenAbleTypes: [nodeTypeSet.NODE_TYPE_WHILE_CHILD],
+        draggable: true,
+        configCompleteStatus: false,
+        reactNode: CollapseNode,
+        childrenKey: "cfg.nodes",
+        children: [{
+            nodeType: nodeTypeSet.NODE_TYPE_WHILE_CHILD,
             draggable: false,
             configCompleteStatus: true,
             noEdge: true,
