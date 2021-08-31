@@ -17,6 +17,10 @@ function WarnCircle() {
   );
 }
 
+// hover 效果
+// 选中当前节点
+// 当前节点配置状态
+
 export function NodeContainer({
   node,
   nodeLevelIndex,
@@ -80,6 +84,7 @@ export function NodeContainer({
       onMouseOut={onMouseOut}
     >
       {!node.configCompleteStatus && <WarnCircle />}
+      
       {children}
     </div>
   );

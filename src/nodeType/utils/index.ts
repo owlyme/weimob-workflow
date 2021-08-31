@@ -1,32 +1,50 @@
-export const fromPorpertiesParseToString = (obj: object) => {
-  const newObj = {};
-  for (const key in obj) {
-    const value = obj[key];
-    if (Object.prototype.toString.call(value) === '[object Object]') {
-      const stepValue = fromPorpertiesParseToString(value);
-      Object.keys(stepValue).forEach(stepKey => {
-        newObj[`${key}.${stepKey}`] = stepValue[stepKey];
-      });
-    } else {
-      newObj[key] = value;
+import { NodeConfig } from '../../core/types';
+
+export function createComponentsandConfigSet(configs: Array<NodeConfig>) {
+  return configs.reduce((acc, nodeItem) => {
+    const { reactNode, ...config } = nodeItem;
+    let ChildComponents = {};
+    let ChildConfigs = {};
+    let ChildKeys = {};
+
+    if (config.children?.length) {
+      [ChildComponents, ChildConfigs, ChildKeys] = createComponentsandConfigSet(config.children)
     }
-  }
-  return newObj;
-};
-
-
-
-export function debounce(fn, delay = 300) {
-  let timer = null;
-  return (...arg) => {
-    if (timer) {
-      clearTimeout(timer);
-    }
-    timer = setTimeout(() => {
-      fn(...arg);
-      clearTimeout(timer);
-    }, delay);
-  };
+    return [
+      {
+        ...acc[0],
+        [config.nodeType]: reactNode,
+        ...ChildComponents
+      },
+      {
+        ...acc[1],
+        [config.nodeType]: config,
+        ...ChildConfigs
+      },
+      {
+        ...acc[2],
+        [config.nodeType]: config.childrenKey,
+        ...ChildKeys
+      }
+    ]
+  }, [{}, {}, {
+    root: "children"
+  }]);
 }
 
-export const onFormChangeDebounce = debounce(cb => cb());
+export function matchProperty(data:object, key: string, value: any) {
+  if (!key) {
+    return value
+  }
+  const levelKey = key.split(".");
+  let val = data;
+
+  levelKey.forEach((key: string, index: number) => {
+    if (index == levelKey.length -1) {
+      val[key] = value
+    } else {
+      val = data[key]
+    }
+  });
+  return data;
+}

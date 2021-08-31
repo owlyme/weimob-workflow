@@ -15,7 +15,14 @@ export {
   addListenerNode
 } from './core';
 
-export { default as Node, registerNode, NodeTypeConfigs, NodeTypeComponents } from './nodeType';
+export { 
+  default as Node, 
+  registerNode, 
+  matchProperty,
+  NodeTypeConfigs, 
+  NodeTypeComponents, 
+  NodeChildKeyFields 
+} from './nodeType';
 
 export {
   CONFIG_KEY,
@@ -48,7 +55,8 @@ export {
   NODE_TYPE_FOR_EACH,
   NODE_TYPE_FOR_EACH_CHILD,
   NODE_TYPE_WHILE,
-  NODE_TYPE_WHILE_CHILD
+  NODE_TYPE_WHILE_CHILD,
+  nodeTypeSet
 } from "./constant"
 
 export {

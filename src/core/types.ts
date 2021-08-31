@@ -31,3 +31,10 @@ export interface NodeProps {
   className?: string;
   [propName: string]: any;
 }
+
+export interface UseProps {
+  nodeType: string;
+  node?: React.ReactElement;
+  form?: React.ReactElement;
+  config: NodeConfig;
+}

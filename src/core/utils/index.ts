@@ -1,18 +1,3 @@
-export const fromPorpertiesParseToString = (obj: object) => {
-  const newObj = {};
-  for (const key in obj) {
-    const value = obj[key];
-    if (Object.prototype.toString.call(value) === '[object Object]') {
-      const stepValue = fromPorpertiesParseToString(value);
-      Object.keys(stepValue).forEach(stepKey => {
-        newObj[`${key}.${stepKey}`] = stepValue[stepKey];
-      });
-    } else {
-      newObj[key] = value;
-    }
-  }
-  return newObj;
-};
 
 export function mouseIsInDragEnterElementArea(
   dragEnterElementArea: any,
@@ -65,4 +50,3 @@ export function debounce(fn: (...arg: any[]) => void, delay = 300) {
   };
 }
 
-export const onFormChangeDebounce = debounce(cb => cb());

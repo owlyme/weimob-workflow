@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { NodePlaceholder, UndefinedNode } from './baseNode';
 import ListenerNode, { ListenerConfig } from './listener';
 import EndNode, { EndConfig } from './end';
@@ -121,6 +122,16 @@ interface UseProps {
   config: NodeConfig;
 }
 
+=======
+import { NodeProps, UseProps } from '../core/types';
+import { UndefinedNode } from './baseNode';
+import configs from "./node";
+import { createComponentsandConfigSet } from "./utils";
+export { matchProperty } from "./utils"
+export const [ NodeTypeComponents, NodeTypeConfigs, NodeChildKeyFields ] = createComponentsandConfigSet(configs);
+
+// 注册自定义节点节点, 必须在工程开始前注册
+>>>>>>> config
 export function registerNode(params: UseProps[]): void {
   (params || []).forEach(({ nodeType, node, config }) => {
     if (!nodeType) {
@@ -132,6 +143,12 @@ export function registerNode(params: UseProps[]): void {
   })
 }
 
+function getNodeTypeComp(nodeType: any) {
+  return NodeTypeComponents[nodeType]
+    ? NodeTypeComponents[nodeType]
+    : UndefinedNode;
+}
+// 根据节点类型，渲染接点
 export default function Node(props: NodeProps) {
   const { node } = props;
   const Node = getNodeTypeComp(node.nodeType);

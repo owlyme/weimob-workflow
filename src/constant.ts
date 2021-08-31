@@ -32,7 +32,7 @@ export const NODE_TYPE_FOR_EACH_CHILD = 'foreachChild';
 export const NODE_TYPE_WHILE = 'while';
 export const NODE_TYPE_WHILE_CHILD = 'whileChild';
 
-export const nodeTypes = {
+export const nodeTypeSet = {
     NODE_TYPE_LISTENER,
     NODE_TYPE_PROCESSOR,
     NODE_TYPE_CHOICE,
@@ -61,4 +61,6 @@ export const nodeTypes = {
     NODE_TYPE_SET_PAYLOAD,
     NODE_TYPE_FOR_EACH,
     NODE_TYPE_FOR_EACH_CHILD,
+    NODE_TYPE_WHILE,
+    NODE_TYPE_WHILE_CHILD,
 }

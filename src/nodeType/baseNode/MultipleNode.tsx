@@ -1,28 +1,19 @@
 import React, { useEffect } from 'react';
-import { NODE_TYPE_CHOICE_WHEN } from '../../constant';
-import { NodeProps, NodeConfig } from '../../core/types';
-import { DropNode } from "../baseNode"
+import { NodeProps } from '../../core/types';
+import DropNode  from "./DropNode"
 
-const createConfig = (): NodeConfig => ({
-  label: 'When',
-  nodeType: NODE_TYPE_CHOICE_WHEN,
-  draggable: false,
-  noEdge: true,
-  childrenFlex: true,
-  deleteForbidden: false,
-  children: [],
-});
-
-export default function When(props: NodeProps) {
+// 可以创建同组容器节点
+export default function MultipleNode(props: NodeProps) {
   const {
     node,
     nodeLevelIndex,
     dispatch,
     parentNode,
     disabled,
+    minChildNum,
   } = props;
+  const deleteForbidden = parentNode && parentNode?.children && parentNode.children?.length <= minChildNum;
 
-  const deleteForbidden = parentNode && parentNode?.children && parentNode.children?.length <= 2;
   useEffect(() => {
     dispatch({
       type: 'workFlow/setNodePorpertiesAndValues',
@@ -36,14 +27,24 @@ export default function When(props: NodeProps) {
 
   const addChildren = (evt: MouseEvent) => {
     evt.stopPropagation();
-    const node = {
-      ...createConfig(),
-    };
+
+    const { label, nodeType, childrenFlex, draggable, showIndex, startIndex, childrenKey } = node
 
     dispatch({
       type: 'workFlow/insertBrotherNode',
       payload: {
-        node,
+        node: {
+            label,
+            nodeType,
+            draggable,
+            noEdge: true,
+            childrenFlex,
+            deleteForbidden: false,
+            showIndex,
+            startIndex,
+            childrenKey,
+            children: [],
+        },
         nodeLevelIndex,
       },
     });
@@ -53,10 +54,11 @@ export default function When(props: NodeProps) {
     <DropNode 
     {...props}
     disabled={deleteForbidden && !disabled}
-    showIndex
+    showIndex={node.showIndex}
+    startIndex={node.startIndex}
     onAddChildren={addChildren}>
     </DropNode>
   );
 }
 
-export const config = createConfig();
+
