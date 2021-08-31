@@ -181,7 +181,7 @@ export default [
     },
     // while
     {
-        icon: 'forEachIcon',
+        icon: 'whileIcon',
         label: 'while',
         nodeType: nodeTypeSet.NODE_TYPE_WHILE,
         childrenAbleTypes: [nodeTypeSet.NODE_TYPE_WHILE_CHILD],
