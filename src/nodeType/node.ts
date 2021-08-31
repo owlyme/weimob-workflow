@@ -205,6 +205,32 @@ export default [
     {
         icon: 'parallelIcon',
         label: 'Parallel',
+        nodeType: nodeTypeSet.NODE_TYPE_PARALLEL,
+        childrenAbleTypes: [nodeTypeSet.NODE_TYPE_PARALLEL_CHILD],
+        draggable: true,
+        configCompleteStatus: true,
+        reactNode: CollapseNode,
+        childrenKey: "cfg.parallel",
+        children: [
+            {
+                label: 'child',
+                nodeType: nodeTypeSet.NODE_TYPE_PARALLEL_CHILD,
+                draggable: false,
+                configCompleteStatus: true,
+                noEdge: true,
+                childrenFlex: true,
+                deleteForbidden: true,
+                children: [],
+                minChildNum: 1,
+                showIndex: true,
+                reactNode: MultipleNode,
+            }
+        ],
+    },
+    // Parallel_aggr
+    {
+        icon: 'parallelIcon',
+        label: 'Parallel',
         nodeType: nodeTypeSet.NODE_TYPE_PARALLEL_AGGR,
         childrenAbleTypes: [nodeTypeSet.NODE_TYPE_PARALLEL_CHILD],
         draggable: true,

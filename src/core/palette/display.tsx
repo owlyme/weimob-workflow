@@ -4,15 +4,17 @@ import Edge from '../edge';
 import IconCom from '../images/icons';
 import { NodeConfig } from '../types';
 import Polyline, { getPosition } from './../arrow/Polyline';
-import mutationObserver from "../utils/mutationObserver"
+import mutationObserver from "../utils/mutationObserver";
+import Node from "../../nodeType"
 import './style.less';
 
-export default function displayHOC(Node:any) {
+export default function displayHOC(NodeElement?: any) {
   const Display = ({ workFlow }: any) => {
     const disabled = true;
     const dispatch = (f: any): void => f;
 
-    if (!Node) {
+    if (!NodeElement) {
+      NodeElement = Node
       console.error('Palette必须要有Node参数 Node是ReactElement');
       return null;
     }
