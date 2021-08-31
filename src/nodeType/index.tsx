@@ -4,7 +4,7 @@ import { UndefinedNode } from './baseNode';
 import configs from "./node";
 import { createComponentsandConfigSet } from "./utils";
 export { matchProperty } from "./utils"
-export const [ NodeTypeComponents, NodeTypeConfigs ] = createComponentsandConfigSet(configs);
+export const [ NodeTypeComponents, NodeTypeConfigs, NodeChildKeyFields ] = createComponentsandConfigSet(configs);
 
 // 注册自定义节点节点, 必须在工程开始前注册
 export function registerNode(params: UseProps[]): void {

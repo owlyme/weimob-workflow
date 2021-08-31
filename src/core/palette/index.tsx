@@ -8,12 +8,14 @@ import DeleteContainer from '../deleteContainer';
 import { NodeConfig } from '../types';
 import { debounce } from '../utils';
 import Polyline, { getPosition } from './../arrow/Polyline';
-import mutationObserver from "../utils/mutationObserver"
+import mutationObserver from "../utils/mutationObserver";
+import Node from "../../nodeType"
 import './style.less';
 
-export default function paletteHOC(Node: any) {
+export default function paletteHOC(NodeElement?: any) {
   const Palette = ({ disabled = false, workFlow, dispatch, subscribe, changsize }: any) => {
-    if (!Node) {
+    if (!NodeElement) {
+      NodeElement = Node
       console.error('Palette必须要有Node参数 Node是ReactElement');
       return null;
     }

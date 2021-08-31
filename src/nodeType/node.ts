@@ -132,7 +132,7 @@ export default [
             childrenFlex: true,
             deleteForbidden: true,
             children: [],
-            reactNode: ChildrenIsNeed,
+            reactNode: ChildrenIsNeed
         }]
     },
     // Sync
