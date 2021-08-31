@@ -13,14 +13,25 @@ npm install --save weimob-workflow
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+import {
+  createWorkflowStore,
+  paletteHOC,
+  initState,
+  addListenerNode,
+  CONFIG_KEY,
+  nodeTypeSet,
+  matchProperty,
+  NodeChildKeyFields,
+} from 'weimob-workflow';
+import 'weimob-workflow/dist/index.css';
 
-import MyComponent from 'weimob-workflow'
-import 'weimob-workflow/dist/index.css'
+const [storeInstance, workFlowConnect] = createWorkflowStore();
+const workFlowStore = storeInstance;
+const WorkFlowPalette = workFlowConnect(paletteHOC());
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <WorkFlowPalette />
   }
 }
 ```
