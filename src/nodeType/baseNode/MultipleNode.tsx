@@ -10,9 +10,9 @@ export default function MultipleNode(props: NodeProps) {
     dispatch,
     parentNode,
     disabled,
-    minChildNum,
   } = props;
-  const deleteForbidden = parentNode && parentNode?.children && parentNode.children?.length <= minChildNum;
+
+  const deleteForbidden = parentNode && parentNode?.children && parentNode.children?.length <= node.minChildNum;
 
   useEffect(() => {
     dispatch({
